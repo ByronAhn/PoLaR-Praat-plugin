@@ -1,0 +1,13 @@
+use_Ranges_tier = 1
+start_Time = 0.0
+end_Time = 0.0
+f0Min = 75
+f0Max = 500
+time_step = 0.0025
+number_of_candidates = 15
+very_accurate = 1
+silence_threshold = 0.03
+voicing_threshold = 0.5
+octave_cost = 0.05
+octave_jump_cost = 0.5
+voice_unvoiced_cost = 0.2

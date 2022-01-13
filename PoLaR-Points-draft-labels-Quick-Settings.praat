@@ -1,0 +1,15 @@
+use_Raw_Hz = 1
+use_Semitones = 0
+use_Ranges_tier = 1
+time_step = 0.0025
+number_of_candidates = 15
+very_accurate = 1
+silence_threshold = 0.03
+voicing_threshold = 0.5
+octave_cost = 0.05
+octave_jump_cost = 0.5
+voice_unvoiced_cost = 0.2
+numLogs = 0
+numOutputs = 0
+new_TextGrid_file_in_Object_List = 0
+viewandedit=1
