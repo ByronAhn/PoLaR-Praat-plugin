@@ -1,6 +1,6 @@
 ==========================
 # PoLaR plugin for Praat #
-# v.2021.11.15           #
+# v.2022.01.28           #
 ==========================
 
 #########################################
@@ -193,22 +193,25 @@ Menu items under the Praat Objects window "New" menu button
 * When you open a Sound or TextGrid object (or both together), a View & Edit window opens,
   with its own menu buttons
 * Within these menu buttons, the "Tier" menu contains several PoLaR script commands.
-        * PoLaR: Automatic Editor View Settings
-            - This adjusts the pitch and spectrogram settings, according to the values
-              used throughout the PoLaR annotation guidelines.
-            - When there are Ranges tier labels already, these are used to set the Pitch
+    - PoLaR: Automatic Editor View Settings
+        * This adjusts the pitch and spectrogram settings
+        * This can either be according to…
+            - …the values used throughout the PoLaR annotation guidelines
+                   ---OR---
+            - …slightly more sensitive (more error-prone) values
+        * When there are Ranges tier labels already, these are used to set the Pitch
               min/max settings.
-        * PoLaR: Resynthesize Straight Line Approximation
-            - This does the same thing as PoLaR SLA (Quick+Quiet), described above
-        * PoLaR: Levels Labels
-            - This does the same thing as PoLaR Levels Labeller (Quick), described above
-        * PoLaR: Extract info from PoLaR tiers
-            - This does the same thing as Extract info from PoLaR tiers, described above
-        * PoLaR: Pseudo Labels (Advanced labels req'd!)
-            - This does the same thing as Pseudo Labels, described above
-        * PoLaR: Create picture (default settings)
-            - This does the same thing as "Create picture with default settings" in the
-              "Draw Sound and TextGrid ▾" menu, as described above
-        * PoLaR: Create picture (advanced)
-            - This does the same thing as "Manually configure settings (advanced)" in the
-              "Draw Sound and TextGrid ▾" menu, as described above
+    - PoLaR: Resynthesize Straight Line Approximation
+        * This does the same thing as PoLaR SLA (Quick+Quiet), described above
+    - PoLaR: Levels Labels
+        * This does the same thing as PoLaR Levels Labeller (Quick), described above
+    - PoLaR: Extract info from PoLaR tiers
+        * This does the same thing as Extract info from PoLaR tiers, described above
+    - PoLaR: Pseudo Labels (Advanced labels req'd!)
+        * This does the same thing as Pseudo Labels, described above
+    - PoLaR: Create picture (default settings)
+        * This does the same thing as "Create picture with default settings" in the
+          "Draw Sound and TextGrid ▾" menu, as described above
+    - PoLaR: Create picture (advanced)
+        * This does the same thing as "Manually configure settings (advanced)" in the
+          "Draw Sound and TextGrid ▾" menu, as described above

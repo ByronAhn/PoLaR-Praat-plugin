@@ -13,13 +13,14 @@ Text reading preferences: "try UTF-8, then ISO Latin-1"
 ####################################################
 # Add the menu commands within the TextGrid editor #
 ####################################################
-Add menu command: "TextGridEditor", "Tier", "PoLaR: Automatic Editor View Settings", "", 1, "PoLaR-Adjust-Editor-View.praat"
-Add menu command: "TextGridEditor", "Tier", "PoLaR: Resynthesize Straight Line Approximation", "", 1, "PoLaR-resynthesize-SLA-from-TGE.praat"
-Add menu command: "TextGridEditor", "Tier", "PoLaR: Levels Labels", "", 1, "PoLaR-Levels-labeller-from-TGE.praat"
-Add menu command: "TextGridEditor", "Tier", "PoLaR: Extract info from PoLaR tiers", "", 1, "PoLaR-Extract-Info-to-TSV-from-TGE.praat"
-Add menu command: "TextGridEditor", "Tier", "PoLaR: Pseudo Labels (Advanced labels req'd!)", "", 1, "PoLaR-to-pseudocategorical-from-TGE.praat"
-Add menu command: "TextGridEditor", "Tier", "PoLaR: Create picture (default settings)", "", 1, "PoLaR-Draw-Sound-and-TextGrid-from-TGE.praat"
-Add menu command: "TextGridEditor", "Tier", "PoLaR: Create picture (advanced)", "", 1, "PoLaR-Draw-Sound-and-TextGrid-from-TGE-Adv.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Standard view settings", "", 1, "PoLaR-Adjust-Editor-View-Standard.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Sensitive view settings", "", 1, "PoLaR-Adjust-Editor-View-Sensitive.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Resynthesize Straight Line Approximation", "", 0, "PoLaR-resynthesize-SLA-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Levels Labels", "", 0, "PoLaR-Levels-labeller-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Extract info from PoLaR tiers", "", 0, "PoLaR-Extract-Info-to-TSV-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Pseudo Labels (Advanced labels req'd!)", "", 0, "PoLaR-to-pseudocategorical-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Create picture (default settings)", "", 0, "PoLaR-Draw-Sound-and-TextGrid-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Create picture (advanced)", "", 0, "PoLaR-Draw-Sound-and-TextGrid-from-TGE-Adv.praat"
 
 ##################################################################################
 # Add the buttons on the Object window, when TextGrid + Sound files are selected #
