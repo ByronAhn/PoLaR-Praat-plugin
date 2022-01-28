@@ -1,3 +1,12 @@
+2022-01-28
+	* The README-FIRST.txt file has been renamed to be README.md
+		- Also updated to reflect updates about the Adjust-Editor-View scripts
+	* The PoLaR-Adjust-Editor-View-* family of .praat files ahve been updated
+		- There are now two options:
+			* using "standard" values from the PoLaR Guidelines
+			* using "sensitive" values that show more information (while being more
+			error prone as a result of being more sensitive)
+
 2021-11-15
 	* The README-FIRST.txt file has been updated to match the increasing functionalities
 	* The PoLaR-to-pseudocategorical-Dir.praat script has been added
