@@ -3,7 +3,6 @@
 v.2022.01.28
 
 
-oe 
 1. **Navigate to your “Praat preferences” directory**
 
 * On Windows, if your username is xxyyzz, your “Praat preferences” directory is: `C:\Users\xxyyzz\Praat\`
