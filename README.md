@@ -3,8 +3,7 @@
 v.2022.01.28
 
 
-##  Steps to install the Praat plugin
-
+oe 
 1. **Navigate to your “Praat preferences” directory**
 
 * On Windows, if your username is xxyyzz, your “Praat preferences” directory is: `C:\Users\xxyyzz\Praat\`
@@ -52,7 +51,7 @@ v.2022.01.28
  
 * If you select a TextGrid-Sound pair…
 	- A menu called "PoLaR TextGrids ▾" will appear, which contains the same buttons as above, plus some others:
-		* The "Blank PoLaR tiers", "Only Blank PoLaR tiers (DANGER)", and "Pseudo Labels (Adv. labels req'd!)" buttons doe the same as described above.
+		* The "Blank PoLaR tiers", "Only Blank PoLaR tiers (DANGER)", and "Pseudo Labels (Adv. labels req'd!)" buttons do the same as described above.
         * There is now also a button called "Extract info from PoLaR tiers".
 			- This will collect and organize PoLaR labels as well as some measures associated with them, which is output to the Praat Info window.
 			- That information is organized with a header and with elements separated by tabs, so it can be pasted easily into a spreadsheet for further analysis.
