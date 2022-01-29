@@ -52,8 +52,8 @@ endfor
 foundFromRanges = 0
 if tierRanges > 0
 	@findRangesMinMax: tgObj
-	f0MinAnalysis = findRangesMinMax.RangesMin
-	f0MaxAnalysis = findRangesMinMax.RangesMax
+	f0MinAnalysis = findRangesMinMax.rangesMin
+	f0MaxAnalysis = findRangesMinMax.rangesMax
 
 	################################################################
 	# Switch commands back to the Editor window
@@ -129,15 +129,11 @@ endproc
 # 
 # --------------------
 procedure findRangesMinMax: .theTg
-	if not (variableExists ("f0Min") and variableExists ("f0Max"))
-		f0Min=55
-		f0Max=700
-	endif
-	.RangesMin = f0Min
-	.RangesMax = f0Max
+	.rangesMin = 55
+	.rangesMax = 700
 	if tierRanges >0
-		.RangesMin = 10000
-		.RangesMax = 0
+		.rangesMin = 10000
+		.rangesMax = 0
 		foundFromRanges = 1
 		# Query TG tier 'tierRanges' for number of intervals
 		.numRanges = Get number of intervals: tierRanges
@@ -152,11 +148,11 @@ procedure findRangesMinMax: .theTg
 			else
 				.numLabeledRanges += 1
 			endif
-			if parseRanges.localMin < .RangesMin
-				.RangesMin = parseRanges.localMin
+			if parseRanges.localMin < .rangesMin
+				.rangesMin = parseRanges.localMin
 			endif
-			if parseRanges.localMax > .RangesMax
-				.RangesMax = parseRanges.localMax
+			if parseRanges.localMax > .rangesMax
+				.rangesMax = parseRanges.localMax
 			endif
 		endfor
 
