@@ -2,8 +2,13 @@
 # PoLaR plugin for Praat
 v.2022.01.28
 
+## Installation of the plugin
+1. **Download the plugin\_PoLaR.zip file**
+* Available on GitHub:  [https://github.com/ByronAhn/PoLaR-Praat-plugin/blob/main/plugin\_PoLaR.zip](https://github.com/ByronAhn/PoLaR-Praat-plugin/blob/main/plugin_PoLaR.zip)
+* Unzip the file, and you should find a new folder `plugin_PoLaR`
+	- We will move this folder shortly
 
-1. **Navigate to your “Praat preferences” directory**
+2. **Navigate to your “Praat preferences” directory**
 
 * On Windows, if your username is xxyyzz, your “Praat preferences” directory is: `C:\Users\xxyyzz\Praat\`
 * On Linux, your “Praat preferences” directory is in your home directory, namely at: `~/.praat-dir/`
@@ -13,21 +18,23 @@ v.2022.01.28
 * In all cases, if you do not see your directory there, you may need to create it.
     - (_If you have trouble, navigate to [this page on the Praat manual](https://www.fon.hum.uva.nl/praat/manual/preferences_folder.html), where finding this directory is described in a different way_)
 
-2. **Within your Praat preferences directory, create a new directory‚ called `plugin_PoLaR`**
-    * The plugin directory _**must**_ begin with `plugin_`
-    * This `plugin_PoLaR` folder _**must**_ be found immediately inside the “Praat preferences” directory
+3. **Move the unzipped `plugin_PoLaR` to this directory**
+    * Take the `plugin_PoLaR` folder that you unzipped and move it to Praat preferences directory
+	* This `plugin_PoLaR` folder _**must**_ be found _**immediately**_ inside the “Praat preferences” directory
         - i.e., on Windows, `C:\Users\xxyyzz\Praat\plugin_PoLaR\`
         - i.e., on Linux, `~/.praat-dir/plugin_PoLaR/`
         - i.e., on a Mac, `~/Library/Preferences/Praat Prefs/plugin_PoLaR/`
 
-3. **Move all the .praat files to this new folder**
-    * Importantly: all .praat files must be in this `plugin_Praat` directory, **_WITHOUT_** any extra directories in between
+4. **Double check location of files**
+    * Importantly: the `setup.praat` file must be found just inside this `plugin_Praat` directory, **_WITHOUT_** any extra directories in between
+		- And the `praatScripts` folder must be in the same directory as `setup.praat`
     * So for example the setup.praat file needs to be here:
         - on Windows, `C:\Users\xxyyzz\Praat\plugin_PoLaR\setup.praat`
         - on Linux, `~/.praat-dir/plugin_PoLaR/setup.praat`
         - on a Mac, `~/Library/Preferences/Praat Prefs/plugin_PoLaR/setup.praat`
+	* If not already there, move the `setup.praat` file (and the `praatScripts` directory) to the right location
 
-4. **If Praat is open, (save all your files and) quit the application and restart it**
+5. **If Praat is open, (save all your files and) quit the application and restart it**
     * After restarting, the plug-in is installed, and the new menu commands or buttons will be ready to use!
 
 
