@@ -13,8 +13,8 @@ Text reading preferences: "try UTF-8, then ISO Latin-1"
 ####################################################
 # Add the menu commands within the TextGrid editor #
 ####################################################
-Add menu command: "TextGridEditor", "Tier", "PoLaR: Standard view settings", "", 1, "PoLaR-Adjust-Editor-View-Standard.praat"
-Add menu command: "TextGridEditor", "Tier", "PoLaR: Sensitive view settings", "", 1, "PoLaR-Adjust-Editor-View-Sensitive.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Standard view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Standard.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Sensitive view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Sensitive.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Resynthesize Straight Line Approximation", "", 0, "PoLaR-resynthesize-SLA-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Levels Labels", "", 0, "PoLaR-Levels-labeller-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Extract info from PoLaR tiers", "", 0, "PoLaR-Extract-Info-to-TSV-from-TGE.praat"
