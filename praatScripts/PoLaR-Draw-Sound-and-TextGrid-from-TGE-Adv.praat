@@ -54,6 +54,7 @@ form Input Parameter Values
 	real startTime 0.0
 	real endTime 0.0 (= all)
 	positive spectrogram_settings_FreqMax 7000
+	positive spectrogram_dynamic_range 40
 	positive f0Min_(for_analysis) 75
 	positive f0Max_(for_analysis) 450
 

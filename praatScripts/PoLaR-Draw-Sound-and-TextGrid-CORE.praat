@@ -1,7 +1,7 @@
 ################################################################
 ###  
 ### PoLaR-Draw-Sound-and-TextGrid-CORE
-### v.2021.08.05
+### v.2022.02.07
 ###
 ### This script creates drawing for spectrograms, pitch tracks, and TextGrids.
 ### Based on a script by Pauline Welby (welby@ling.ohio-state.edu, welby@icp.inpg.fr) from November 20, 2005
@@ -326,7 +326,7 @@ procedure drawPitchSpec
 	voice_unvoiced_cost = 0.2
 
 	if manual_advanced_pitch_settings = 1
-	beginPause: "Tiers to Draw"
+	beginPause: "Advanced Settings"
 		real: "time_step (0 = auto)", 0.0025
 		integer: "number_of_candidates", 15
 		boolean: "very_accurate", 1
@@ -359,7 +359,7 @@ procedure drawPitchSpec
 
 #	Draw Spectrogram 
 	select Spectrogram 'soundName$'
-	Paint... 'startTime' 'endTime' 0 0 100 yes 40 6 0 no
+	Paint... 'startTime' 'endTime' 0 0 100 yes 'spectrogram_dynamic_range' 6 0 no
 
 #	Label y axis
 	Line width... 1

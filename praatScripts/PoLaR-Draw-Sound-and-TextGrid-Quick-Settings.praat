@@ -8,6 +8,7 @@ manual_advanced_pitch_settings = 0
 startTime = 0.0
 endTime = 0.0
 spectrogram_settings_FreqMax = 7000
+spectrogram_dynamic_range = 40
 f0Min = 75
 f0Max = 450
 use_this_f0_range_as_draw_range = 0
