@@ -1,3 +1,9 @@
+# 2022-02-09
+* The drawing scripts now feature even more options (re: drawing f0, drawing spectrogram)
+* If the user deselects the "let the script determine the f0 draw range" option, they can manually input the f0 view range min/max in the drawing
+* The CORE script now uses the more modern Praat "colon" style for passing values to functions
+
+
 # 2022-02-08
 * The changelog-plugin_PoLaR.txt file has been renamed to be changelog-plugin_PoLaR.md
 * The drawing scripts now feature options to change the spectrogram's dynamic range setting
