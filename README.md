@@ -1,6 +1,6 @@
 
 # PoLaR plugin for Praat
-v.2022.01.28
+Last updated: 2022/02/09
 
 ## Installation of the plugin
 1. **Download the plugin\_PoLaR.zip file**
