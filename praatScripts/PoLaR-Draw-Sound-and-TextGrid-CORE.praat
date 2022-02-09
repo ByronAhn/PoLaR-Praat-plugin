@@ -388,11 +388,10 @@ procedure drawPitchSpec
 		else
 			viewRangeMin = Get minimum: startTime, endTime, "Hertz", "Parabolic"
 			viewRangeMax = Get maximum: startTime, endTime, "Hertz", "Parabolic"
+			# now adjust view range according to y_axis_interval:
+			viewRangeMin = viewRangeMin - (viewRangeMin mod y_axis_interval)
+			viewRangeMax = viewRangeMax + (y_axis_interval - (viewRangeMax mod y_axis_interval))
 		endif
-
-		# adjust view range according to y_axis_interval:
-		viewRangeMin = 'viewRangeMin' - ('viewRangeMin' mod 'y_axis_interval')
-		viewRangeMax = 'viewRangeMax' + ('y_axis_interval' - ('viewRangeMax' mod 'y_axis_interval'))
 
 	#	Draw big white dots to make blue pitch dots more visible with spectrogram background
 		Speckle size: 2.5 
