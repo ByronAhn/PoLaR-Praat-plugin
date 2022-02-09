@@ -1,7 +1,7 @@
 ################################################################
 ###  
 ### PoLaR-Draw-Sound-and-TextGrid-CORE
-### v.2022.02.07
+### v.2022.02.09
 ###
 ### This script creates drawing for spectrograms, pitch tracks, and TextGrids.
 ### Based on a script by Pauline Welby (welby@ling.ohio-state.edu, welby@icp.inpg.fr) from November 20, 2005
@@ -38,6 +38,12 @@ procedure main
 	elsif numberOfSelected ("TextGrid") > 1
 		exitScript: "Select at most one TextGrid file"
 	else
+		if let_the_script_determine_the_f0_draw_range = 0
+		beginPause: "Provide the f0 view range min/max:"
+			positive: "f0 range min", f0Min
+			positive: "f0 range max", f0Max
+		clicked = endPause: "Draw These", 1
+		endif
 		soundName$ = selected$ ("Sound", 1)
 		tgName$ = selected$ ("TextGrid", 1)
 		if soundName$ = ""
@@ -92,7 +98,7 @@ procedure soundAndTextgrid
 	if draw_all_TextGrid_tiers = 0
 	beginPause: "TextGrid tiers to include in drawing:"
 		for iTier from 1 to totalTiers
-			tierNames$ [iTier] = Get tier name... 'iTier'
+			tierNames$ [iTier] = Get tier name: iTier
 			tierNameVar$ [iTier] =  replace$(tierNames$ [iTier], " ", "\_ ", 0)
 			tierNameVar$ [iTier] =  replace_regex$ (tierNames$ [iTier], "[^0-9a-zA-Z_]", "_", 0)
 			tierNameVar$ [iTier] = "draw_" + tierNameVar$ [iTier] + "_tier"
@@ -110,7 +116,7 @@ procedure soundAndTextgrid
 #	Adjust TextGrid to contain the right tiers
 	select TextGrid 'tgName$'
 	copyName$ = tgName$ + "_copy"
-	Copy... 'copyName$'
+	Copy: copyName$
 	select TextGrid 'copyName$'
 	if draw_all_TextGrid_tiers = 0
 		for i from 1 to totalTiers
@@ -118,7 +124,7 @@ procedure soundAndTextgrid
 			drawMeVarName$ = tierNameVar$ [xTier]
 			drawMe = 'drawMeVarName$'
 			if drawMe = 0
-				Remove tier... xTier
+				Remove tier: xTier
 			endif
 		endfor
 	endif
@@ -162,10 +168,10 @@ procedure soundAndTextgrid
 			tgridTop = 0.0
 		endif
 #		Select the viewport for drawing
-		Viewport... 0 'width_of_entire_drawing' 'tgridTop' 'tgridBot'
+		Viewport: 0, width_of_entire_drawing, tgridTop, tgridBot
 
 #		Draw TextGrid
-		Draw... 'startTime' 'endTime' no no no
+		Draw: startTime, endTime, "no", "no", "no"
 		tierFrac = 'nTiers'/(4+'nTiers')
 		#	Calculate the size of the image, based on number of tiers and size of spectrogram / pitch track
 			if 'nTiers'=2
@@ -180,14 +186,14 @@ procedure soundAndTextgrid
 		tierLabelLeft = 'width_of_entire_drawing' - 0.7
 		
 		for iTier from 1 to nTiers
-			Font size... 10
+			Font size: 10
 			select TextGrid 'copyName$'
-			tierLabel$ = Get tier name... 'iTier'
+			tierLabel$ = Get tier name: iTier
 			currTierTop = 'pitchAndSpecBot' - (0.15*1.5/height_of_the_pitch_track_and_spectrogram) - ('iTier'-1)*tierHeight
 			currTierBot = 'currTierTop' + 'tierHeight'
-			Viewport... 'tierLabelLeft' 'width_of_entire_drawing' 'currTierTop' 'currTierBot'
-			Viewport text... Left Half 0 'tierLabel$'
-			Font size... 12
+			Viewport: tierLabelLeft, width_of_entire_drawing, currTierTop, currTierBot
+			Viewport text: "Left", "Half", 0, tierLabel$
+			Font size: 12
 		endfor
 
 	tTextName$ =  replace$("'tgName$'", "_", "\_ ", 0)
@@ -212,18 +218,18 @@ endproc
 # --------------------
 procedure decorateImage: .title$
 #	Define size and position of the entire Picture
-	Viewport... 0 'width_of_entire_drawing' 0 'figBot'
-	Text top... no '.title$'
+	Viewport: 0, width_of_entire_drawing, 0, figBot
+	Text top: "no", .title$
 
 #	Draw inner box
 	Black
 	Draw inner box
 
 #	Label x axis
-	Line width... 1
-		One mark bottom... 'startTime' no yes yes 'startTime'
-		One mark bottom... 'endTime' no yes yes 'endTime'
-		Text bottom... no Time (s)
+	Line width: 1
+		One mark bottom: startTime, "no", "yes", "yes", string$(startTime)
+		One mark bottom: endTime, "no", "yes", "yes", string$(endTime)
+		Text bottom: "no", "Time (s)"
 
 
 	select Spectrogram 'soundName$'
@@ -250,15 +256,15 @@ procedure saveIfTrue
 
 	if 'save_as_pdf' = 1
 		saveme$ = outDir$ + saveAsName$ + ".pdf"
-		Save as PDF file... 'saveme$'
+		Save as PDF file: saveme$
 	endif
 	if 'save_as_eps' = 1
 		saveme$ = outDir$ + saveAsName$ + ".eps"
-		Write to EPS file... 'saveme$'
+		Write to EPS file: saveme$
 	endif
 	if 'save_as_png' = 1
 		saveme$ = outDir$ + saveAsName$ + ".png"
-		Save as 300-dpi PNG file... 'saveme$'
+		Save as 300-dpi PNG file: saveme$
 	endif
 endproc
 
@@ -340,93 +346,76 @@ procedure drawPitchSpec
 
 #	Make Pitch object
 	select Sound 'soundName$'
-	To Pitch (ac)... 'time_step' 'rangeMin' 'number_of_candidates' 'very_accurate' 'silence_threshold' 'voicing_threshold' 'octave_cost' 'octave_jump_cost' 'voice_unvoiced_cost' 'rangeMax'
+	To Pitch (ac): time_step, rangeMin, number_of_candidates, very_accurate, silence_threshold, voicing_threshold, octave_cost, octave_jump_cost, voice_unvoiced_cost, rangeMax
 
 #	Make Spectrogram object
 	select Sound 'soundName$'
-	To Spectrogram... 0.005 'spectrogram_settings_FreqMax' 'timeStepNum' 'freqStepNum' Gaussian
+	To Spectrogram: 0.005, spectrogram_settings_FreqMax, timeStepNum, freqStepNum, "Gaussian"
 
 
 #	Specify font type size, color
 	Times
-	Font size... 12
+	Font size: 12
 	Black
 
 
 #	Define size and position of pitch track / spectrogram
-	Viewport... 0 'width_of_entire_drawing' 'pitchAndSpecTop' 'pitchAndSpecBot'
+	Viewport: 0, width_of_entire_drawing, pitchAndSpecTop, pitchAndSpecBot
 	Erase all
 
 #	Draw Spectrogram 
-	select Spectrogram 'soundName$'
-	Paint... 'startTime' 'endTime' 0 0 100 yes 'spectrogram_dynamic_range' 6 0 no
+	if (draw_the_spectrogram = 1)
+		select Spectrogram 'soundName$'
+		Paint: startTime, endTime, 0, 0, 100, "yes", spectrogram_dynamic_range, 6, 0, "no"
 
-#	Label y axis
-	Line width... 1
-	One mark right... 'spectrogram_settings_FreqMax' yes yes yes
-	One mark right... 'specFMin' yes yes no
-	Text right... yes Frequency (Hz)
-
+	#	Label y axis
+		Line width: 1
+		One mark right: spectrogram_settings_FreqMax, "yes", "yes", "yes", ""
+		One mark right: specFMin, "yes", "yes", "no", ""
+		Text right: "yes", "Frequency (Hz)"
+	endif
 
 #	Draw Pitch 
 	select Pitch 'soundName$'
-	
-	if (use_Ranges_tier_as_draw_range = 1) and (tierRanges > 0)
-		actf0min = rangeMin
-	else
-		actf0min = Get minimum... 'startTime' 'endTime' Hertz Parabolic
-	endif
-	actf0min = 'actf0min' - ('actf0min' mod 'y_axis_interval')
-
-	if (use_Ranges_tier_as_draw_range = 1) and (tierRanges > 0)
-		actf0max = rangeMax
-	else
-		actf0max = Get maximum... 'startTime' 'endTime' Hertz Parabolic
-	endif
-	actf0max = 'actf0max' + ('y_axis_interval' - ('actf0max' mod 'y_axis_interval'))
-
-
-#	Draw big white dots to make blue pitch dots more visible with spectrogram background
-	Speckle size... 2.5 
-	White
-	if use_this_f0_range_as_draw_range = 0
-		Speckle... 'startTime' 'endTime' 'actf0min' 'actf0max' no
-	else
-		Speckle... 'startTime' 'endTime' 'rangeMin' 'rangeMax' no
-	endif
-
-#	Draw blue dots for pitch values
-	Speckle size... 1.0
-	Blue
-	if use_this_f0_range_as_draw_range = 0
-		Speckle... 'startTime' 'endTime' 'actf0min' 'actf0max' no
-	else
-		Speckle... 'startTime' 'endTime' 'rangeMin' 'rangeMax' no
-	endif
-
-#	Label y axis
-	Black
-	Line width... 1
-	if 'mark_f0_intervals_on_the_axis' = 1
-		Marks left every... 1 'y_axis_interval' yes yes no
-		if use_this_f0_range_as_draw_range = 0
-			One mark left... 'actf0max' no no yes
+	if (draw_the_f0_contour = 1)
+		if (let_the_script_determine_the_f0_draw_range = 0)
+			# get values from dialog box that pops up if let_the_script_determine_the_f0_draw_range is unchecked:
+			viewRangeMin = f0_range_min
+			viewRangeMax = f0_range_max
+		elsif (use_Ranges_tier_as_draw_range = 1) and (tierRanges > 0)
+			viewRangeMin = rangeMin
+			viewRangeMax = rangeMax
 		else
-			One mark left... 'rangeMax' no no yes
+			viewRangeMin = Get minimum: startTime, endTime, "Hertz", "Parabolic"
+			viewRangeMax = Get maximum: startTime, endTime, "Hertz", "Parabolic"
 		endif
-	else
-		if use_this_f0_range_as_draw_range = 0
-			One mark left... 'actf0max' yes yes yes
+
+		# adjust view range according to y_axis_interval:
+		viewRangeMin = 'viewRangeMin' - ('viewRangeMin' mod 'y_axis_interval')
+		viewRangeMax = 'viewRangeMax' + ('y_axis_interval' - ('viewRangeMax' mod 'y_axis_interval'))
+
+	#	Draw big white dots to make blue pitch dots more visible with spectrogram background
+		Speckle size: 2.5 
+		White
+		Speckle: startTime, endTime, viewRangeMin, viewRangeMax, "no"
+
+	#	Draw blue dots for pitch values
+		Speckle size: 1.0
+		Blue
+		Speckle: startTime, endTime, viewRangeMin, viewRangeMax, "no"
+
+	#	Label y axis
+		Black
+		Line width: 1
+		if (mark_f0_intervals_on_the_axis = 1)
+			Marks left every: 1, y_axis_interval, "yes", "yes", "no"
+			One mark left: viewRangeMax, "no", "no", "yes", ""
 		else
-			One mark left... 'rangeMax' yes yes yes
+			One mark left: viewRangeMax, "yes", "yes", "yes", ""
+			One mark left: viewRangeMin, "yes", "yes", "no", ""
 		endif
-		if use_this_f0_range_as_draw_range = 0
-			One mark left... 'actf0min' yes yes no
-		else
-			One mark left... 'rangeMin' yes yes no
-		endif
+		Text left: "yes", "f0 (Hz)"
 	endif
-	Text left... yes f0 (Hz)
 endproc
 
 
@@ -443,15 +432,15 @@ procedure findLocalMinMax: .start, .end
 		rangeMin = 10000
 		rangeMax = 0
 		# Query TG tier 'tierRanges' for number of intervals
-		numRanges = Get number of intervals... 'tierRanges'
+		numRanges = Get number of intervals: tierRanges
 
 		if .start > 0
-			.firstInt = Get interval at time... 'tierRanges' .start
+			.firstInt = Get interval at time: tierRanges, .start
 		else
 			.firstInt = 1
 		endif
 		if .end > 0
-			.lastInt = Get interval at time... 'tierRanges' .end
+			.lastInt = Get interval at time: tierRanges, .end
 		else
 			.lastInt = numRanges
 		endif
