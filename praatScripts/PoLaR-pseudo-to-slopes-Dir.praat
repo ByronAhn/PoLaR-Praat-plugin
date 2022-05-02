@@ -71,7 +71,7 @@ for xF from 1 to numberOfFiles
 
 			# run the extraction functions, with the .wav and .Textgrid files
 			selectObject: aWav, aTg
-			@main
+			@pseudoSlopesMain
 			selectObject: aWav, aTg
 			Remove
 

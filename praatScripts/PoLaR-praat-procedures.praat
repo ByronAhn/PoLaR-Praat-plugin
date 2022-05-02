@@ -277,23 +277,27 @@ procedure parseRanges: .intervalLabel$
 	.rightOfSep$ = replace$(.rightOfSep$, "/", "", 0)
 
 	# For the left side of the dash (i.e., the min):
+	# First, extract the first number in the string:
+	.minOutOfParens = extractNumber(.leftOfSep$, "")
 	# Check if there are parentheses labels. If so, extract the number that comes after the open-parens.
 	# If not, extract the number from the left-side of the dash.
-	llParen = index_regex (.leftOfSep$, "\(")
-	if llParen > 0
+	.llParen = index_regex (.leftOfSep$, "\(")
+	if .llParen > 0
 		.localMin = extractNumber(.leftOfSep$, "(")
 	else
-		.localMin = extractNumber(.leftOfSep$, "")
+		.localMin = .minOutOfParens
 	endif
 
 	# For the right side of the dash (i.e., the max):
+	# First, extract the first number in the string from the right-side of the dash:
+	.maxOutOfParens = extractNumber(.rightOfSep$, "")
 	# Check if there are parentheses labels. If so, extract the number that comes after the open-parens.
 	# If not, extract the number from the right-side of the dash.
 	.rlParen = index_regex (.rightOfSep$, "\(")
 	if .rlParen > 0
 		.localMax = extractNumber(.rightOfSep$, "(")
 	else
-		.localMax = extractNumber(.rightOfSep$, "")
+		.localMax = .maxOutOfParens
 	endif
 endproc
 

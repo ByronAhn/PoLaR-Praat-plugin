@@ -36,7 +36,7 @@ form Pitch settings for straight line approximations
 endform
 
 include PoLaR-resynthesize-SLA-CORE.praat
-@main
+@pseudoMain
 
 # Show resynthesized pitch with textgrid
 selectObject: theResynth, theTg

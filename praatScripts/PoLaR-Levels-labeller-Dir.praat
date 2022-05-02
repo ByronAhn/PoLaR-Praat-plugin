@@ -54,7 +54,7 @@ for xF from 1 to numberOfFiles
 
 			# run the extraction functions, with the .wav and .Textgrid files
 			selectObject: aWav, aTg
-			@main
+			@levelsLabellerMain
 			selectObject: aTg
 			Save as text file: tgFile$
 			selectObject: aWav, aTg

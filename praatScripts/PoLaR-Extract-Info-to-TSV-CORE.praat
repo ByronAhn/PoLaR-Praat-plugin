@@ -27,11 +27,11 @@
 
 # --------------------
 # 
-#	Procedure main
+#	Procedure extractInfoMain
 #	(The main function)
 # 
 # --------------------
-procedure main
+procedure extractInfoMain
 	@versionChecker: 6, 1, 0
 	header$ = "Filename" + tab$ + "Tier name" + tab$ + "Label" + tab$ + "(Start) Time [sec]" + tab$ + "End Time [sec]" + tab$ + "Timing wrt Words" + tab$ + "Timing wrt Phones" + tab$ + "(Start) F0 value [Hz]" + tab$ + "End F0 value [Hz]" + tab$ + "Avg F0 value [Hz]" + tab$ + "F0 Range (Hz)" + tab$ + "Levels value" + tab$ + "(Start) Intensity value [dB]" + tab$ + "End Intensity value [dB]" + tab$ + "Avg Intensity value [dB]"
 

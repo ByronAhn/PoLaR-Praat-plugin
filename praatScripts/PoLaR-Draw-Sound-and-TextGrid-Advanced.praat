@@ -30,7 +30,7 @@ form Input Parameter Values
 	positive height_of_the_pitch_track_and_spectrogram 1.5
 	boolean draw_the_f0_contour yes	
 	boolean let_the_script_determine_the_f0_draw_range yes
-	boolean use_Ranges_tier_as_draw_range_(if_available) yes
+	boolean use_Ranges_tier_as_draw_range_(if_available) no
 	integer y_axis_interval 50
 	boolean mark_f0_intervals_on_the_axis yes
 	boolean draw_the_spectrogram yes	
@@ -43,4 +43,4 @@ include PoLaR-Draw-Sound-and-TextGrid-CORE.praat
 
 numLogs=0
 #@logging: date$ () + newline$ + "Running script for extracting information from PoLaR labels to a .tsv file"
-@main
+@drawMain

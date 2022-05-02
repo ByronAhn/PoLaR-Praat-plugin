@@ -21,7 +21,7 @@ for z to numberOfSelected ("TextGrid")
 	origTg = selected ("TextGrid", z)
 	selectObject: origTg
 
-	@main
+	@pseudoLabelsMain
 
 	@returnSelection
 endfor

@@ -49,7 +49,7 @@ for xF from 1 to numberOfFiles
 
 		# run the Pseudo tier labelling functions, with the .Textgrid files
 		selectObject: aTg
-		@main
+		@pseudoLabelsMain
 		selectObject: aTg
 		Save as text file: tgFile$
 		selectObject: aTg

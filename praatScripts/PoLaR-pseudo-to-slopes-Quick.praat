@@ -20,4 +20,4 @@ create_A_Single_Output_File = 0
 outToFile = 0
 numLogs=0
 @logging: date$ () + newline$ + "Running script for extracting information from PoLaR Pseudo labels to a .tsv file"
-@main
+@pseudoSlopesMain

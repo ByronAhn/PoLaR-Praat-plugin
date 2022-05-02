@@ -15,4 +15,4 @@ include PoLaR-Draw-Sound-and-TextGrid-CORE.praat
 
 numLogs=0
 #@logging: date$ () + newline$ + "Running script for extracting information from PoLaR labels to a .tsv file"
-@main
+@drawMain

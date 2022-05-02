@@ -32,4 +32,4 @@ form Pitch settings for straight line approximations
 endform
 include PoLaR-Levels-labeller-CORE.praat
 viewandedit=1
-@main
+@levelsLabellerMain

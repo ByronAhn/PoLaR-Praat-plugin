@@ -48,7 +48,7 @@ include PoLaR-Levels-labeller-Quick-Settings.praat
 include PoLaR-Levels-labeller-CORE.praat
 fromTGE=1 
 viewandedit=0
-@main
+@levelsLabellerMain
 
 selectObject: sndObj
 Remove

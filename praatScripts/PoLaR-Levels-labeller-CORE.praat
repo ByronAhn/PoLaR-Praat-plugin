@@ -38,11 +38,11 @@
 
 # --------------------
 # 
-#	Procedure main
+#	Procedure levelsLabellerMain
 #	(The main function)
 # 
 # --------------------
-procedure main
+procedure levelsLabellerMain
 	numLogs=0
 	@versionChecker: 6, 1, 0
 

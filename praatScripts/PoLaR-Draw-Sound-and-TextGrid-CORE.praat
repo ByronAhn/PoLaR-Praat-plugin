@@ -24,7 +24,7 @@
 ###
 ################################################################
 
-procedure main
+procedure drawMain
 	if numberOfSelected ("Sound") = 0
 		exitScript: "Select one Sound object (and maybe one matching TextGrid object)"
 	elsif numberOfSelected ("Sound") > 1

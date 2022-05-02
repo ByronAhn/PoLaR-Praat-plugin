@@ -14,4 +14,4 @@
 include PoLaR-Points-draft-labels-Quick-Settings.praat
 include PoLaR-Points-draft-labels-CORE.praat
 viewandedit=1
-@main
+@draftPointsMain

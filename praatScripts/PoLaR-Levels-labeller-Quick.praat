@@ -14,4 +14,4 @@
 include PoLaR-Levels-labeller-Quick-Settings.praat
 include PoLaR-Levels-labeller-CORE.praat
 viewandedit=1
-@main
+@levelsLabellerMain

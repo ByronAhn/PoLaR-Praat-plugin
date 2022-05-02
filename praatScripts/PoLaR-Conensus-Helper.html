@@ -1,0 +1,208 @@
+<h1>Important Note</h1>
+<p>This script won’t tell you all the things you need to discuss.</p>
+<p>Users must bring a critical eye to the TextGrid output of this script!</p>
+<h1>Words/Phones</h1>
+<ul>
+<li>Nothing is changed automatically, but alert the labellers of the differences</li>
+<li>include two Words/Phones tiers where there are differences</li>
+<li>flag it on the DISCUSS tier if…
+<ul>
+<li>the words/phones tiers are different in their content</li>
+<li>the word/phone boundaries are different</li>
+</ul>
+</li>
+</ul>
+<h1>PrStr</h1>
+<ul>
+<li>combine all PrStr labels from both labellers
+<ul>
+<li>if a PrStr label is only in one labeller’s file, mark this on the DISCUSS tier</li>
+</ul>
+</li>
+<li>when there is a label at the exact same time in both files
+<ul>
+<li>if they have the same label…
+<ul>
+<li>obviously just add one of them</li>
+</ul>
+</li>
+<li>else if labels differ in uncertainty (e.g., ?* vs *)
+<ul>
+<li>add the certain one</li>
+</ul>
+</li>
+<li>else if one label is more highly specified than another (e.g., ** vs *, and ]#ip vs ])
+<ul>
+<li>add the more highly specified one</li>
+</ul>
+</li>
+<li>else if they differ in any other way
+<ul>
+<li>add both labels (X and Y) to the same point as “X –vs– Y”</li>
+<li>flag it on the DISCUSS tier</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>if two consecutive PrStr labels are identical and they occur  within the same Phone interval
+<ul>
+<li>delete one</li>
+<li>mark it on the DISCUSS tier</li>
+</ul>
+</li>
+</ul>
+<h1>Points</h1>
+<ul>
+<li>when there is a Points label in both files within 20 ms of one another
+<ul>
+<li>if they have the same label…
+<ul>
+<li>add just one of them (randomly)</li>
+<li>mark on the deleted one on the DISCUSS tier</li>
+</ul>
+</li>
+<li>if they have different labels…
+<ul>
+<li>create a new label by first determining the (i) core label, (ii) comma label, (iii) timing</li>
+<li>the core label comes from the most specified core label
+<ul>
+<li>if one is advanced and the other isn’t, use the advanced one (e.g., for *&lt; vs 0, use *&lt;)</li>
+<li>if neither is advanced, it’s “0”</li>
+<li>if they’re both advanced, use the one that has the most detail  (e.g., for *&lt;#CF vs *&lt;, use *&lt;#CF)
+<ul>
+<li>if this isn’t automatically resolvable, flag it for the user</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>specify a comma override if at least one of two labels has one
+<ul>
+<li>straightforward if only one of the two has a comma label: using that existing comma override is better than not (logic: more highly specified labels are better than less specified ones)</li>
+<li>if they both have a comma override…
+<ul>
+<li>if their difference in value ≤ 10Hz
+<ul>
+<li>average them and use that</li>
+</ul>
+</li>
+<li>else if their difference in value &gt; 10Hz:
+<ul>
+<li>give labeller guidance to go to sensitive view and measure f0; go with the comma override that’s closer to that value (if it looks reliable)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>the timing by default comes from the the most specified core label
+<ul>
+<li>but if there is a comma override, the timing comes from the label with the comma override
+<ul>
+<li>if they both have comma overrides put it at the midpoint between them</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>some guidance to be added somewhere??
+<ul>
+<li>“you need to have a discussion. can’t be automated. listening required.”</li>
+<li>guidance: lean in direction of using more detailed label</li>
+<li>guidance: if the Points is a 0, maybe the difference is not so important anyway!</li>
+<li>guidance: if one uses ghost points, consider going with the non-ghost-point?</li>
+<li>guidance: if the labels are slightly different, but one set gets you closer to the extremes of a f0 movement, go with that one</li>
+<li>guidance: when comparing appropriate timing and value for comma overrides, compare sensitive and non-sensitive view</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:right"></th>
+<th style="text-align:center">A comma; B no-comma</th>
+<th style="text-align:center">A no-comma; B comma</th>
+<th style="text-align:center">both comma</th>
+<th style="text-align:center">neither comma</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right"><strong>A adv; B 0</strong></td>
+<td style="text-align:center">only A</td>
+<td style="text-align:center">A’s adv; B’s timing/comma</td>
+<td style="text-align:center">compare commas; A’s adv</td>
+<td style="text-align:center">only A</td>
+</tr>
+<tr>
+<td style="text-align:right"><strong>A 0; B adv</strong></td>
+<td style="text-align:center">A’s timing/comma; B’s adv</td>
+<td style="text-align:center">only B</td>
+<td style="text-align:center">compare commas; B’s adv</td>
+<td style="text-align:center">only B</td>
+</tr>
+<tr>
+<td style="text-align:right"><strong>both adv</strong></td>
+<td style="text-align:center">A’s timing/comma; compare adv</td>
+<td style="text-align:center">B’s timing/comma; compare adv</td>
+<td style="text-align:center">compare commas; compare adv</td>
+<td style="text-align:center">compare adv</td>
+</tr>
+<tr>
+<td style="text-align:right"><strong>neither adv</strong></td>
+<td style="text-align:center">only A</td>
+<td style="text-align:center">only B</td>
+<td style="text-align:center">compare commas</td>
+<td style="text-align:center">(subcase of A = B)</td>
+</tr>
+</tbody>
+</table>
+<h1>Ranges</h1>
+<ul>
+<li>if two of the three conditions are met:
+<ul>
+<li>different range min</li>
+<li>different range max</li>
+<li>different number of ranges</li>
+</ul>
+</li>
+<li>…then output should have 2 ranges tiers + 2 levels tiers
+<ul>
+<li>levels1, ranges1, levels2, ranges2</li>
+<li>labeller is flagged about ranges</li>
+</ul>
+</li>
+<li>OTHERWISE:</li>
+<li>if ranges are co-timed but have different labels
+<ul>
+<li>if one uses () and the other doesn’t: encourage discussion
+<ul>
+<li>guidance: are there other cues to a phrase boundary? if so, consider using the non-() version, because this might be phrase-induced pitch reset</li>
+</ul>
+</li>
+<li>if Levels labels are identical: go with the narrower Range (i.e. the one that has a smaller max-min value)</li>
+<li>if Levels labels are different: XXXXX</li>
+</ul>
+</li>
+<li>more ranges = better… if it makes a difference on Levels associated with *s
+<ul>
+<li>if no effect on Levels: fewer is better</li>
+</ul>
+</li>
+<li>analytic maxim: L=&gt; 1, H=&gt; 5, adjust ranges as appropriate
+<ul>
+<li>at the end of the process: check that all Range intervals have a 1 and 5, and if not, warn the user</li>
+</ul>
+</li>
+</ul>
+<h1>Discussions</h1>
+<ul>
+<li>declination doesn’t necessarily mean new range, but downstep does!
+<ul>
+<li>declination often leads to uncertainty of whether there should be a new Range or not. when in doubt: add the extra Range, to ensure that all the phonologically high targets map onto Levels values of 4 or 5.</li>
+</ul>
+</li>
+<li>what does IPO say for comparing points?</li>
+</ul>

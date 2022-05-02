@@ -15,11 +15,11 @@
 
 # --------------------
 # 
-#	Procedure main
+#	Procedure pseudoSlopesMain
 #	(The main function)
 # 
 # --------------------
-procedure main
+procedure pseudoSlopesMain
 	@versionChecker: 6, 1, 0
 	header$ = "Filename" + tab$ + "Tier name" + tab$ + "Label" + tab$ + "(Start) Time [sec]" + tab$ + "Timing wrt Words" + tab$ + "Timing wrt Phones" + tab$ + "Rise min [Hz]" + tab$ + "Rise max [Hz]" + tab$ + "Rise change [Hz]" + tab$ + "Rise start [sec]" + tab$ + "Rise end [sec]" + tab$ + "Rise time [sec]" + tab$ + "Rise slope" + tab$ + "F0 Range (Hz)"
 

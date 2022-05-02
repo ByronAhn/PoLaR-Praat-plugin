@@ -42,7 +42,7 @@ fromTGE=1
 viewandedit=0
 new_TextGrid_file_in_Object_List=0
 
-@main
+@pseudoLabelsMain
 
 selectObject: sndObj
 Remove

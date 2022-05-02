@@ -49,7 +49,7 @@ selectObject: tgObj, sndObj
 include PoLaR-resynthesize-SLA-Quick-Settings.praat
 include PoLaR-resynthesize-SLA-CORE.praat
 fromTGE=1 
-@main
+@pseudoMain
 
 # Show resynthesized pitch with textgrid
 selectObject: theResynth, theTg

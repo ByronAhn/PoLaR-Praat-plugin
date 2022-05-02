@@ -1,3 +1,11 @@
+# 2022-05-01
+* Added the first version of PoLaR-Conensus-Helper.praat (did some minor edits to some adjacent scripts to support it)
+
+# 2022-02-24
+* Updated the TextGrid-Blank family of scripts, so as to allow the command to be called from a TextGrid Editor window
+* Modified the setup.praat to allow this
+* Draw-Sound-and-TextGrid scripts updated to change default "advanced" settings to be slightly more like the non-advanced settings
+
 # 2022-02-09
 * The drawing scripts now feature even more options (re: drawing f0, drawing spectrogram)
 * If the user deselects the "let the script determine the f0 draw range" option, they can manually input the f0 view range min/max in the drawing

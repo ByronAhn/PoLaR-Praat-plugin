@@ -112,6 +112,6 @@ include PoLaR-praat-procedures.praat
 
 ################################################################
 ###  
-### end of PoLaR-Advanced-to-Basic
+### end of PoLaR-Blank-TextGrid
 ### 
 ################################################################

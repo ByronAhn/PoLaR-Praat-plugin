@@ -44,11 +44,11 @@
 
 # --------------------
 # 
-#	Procedure main
+#	Procedure draftPointsMain
 #	(The main function)
 # 
 # --------------------
-procedure main
+procedure draftPointsMain
 	@versionChecker: 6, 1, 38
 
 	numLogs=0

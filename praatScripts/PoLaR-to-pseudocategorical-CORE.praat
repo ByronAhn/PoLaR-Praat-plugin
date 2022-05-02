@@ -47,11 +47,11 @@
 
 # --------------------
 # 
-#	Procedure main
+#	Procedure pseudoLabelsMain
 #	(The main function)
 # 
 # --------------------
-procedure main
+procedure pseudoLabelsMain
 	@versionChecker: 6, 1, 38
 
 	numLogs=0
@@ -82,6 +82,7 @@ procedure main
 	numPhoneIntervals = Get number of intervals: tierPhones
 	phoneTierEnd = Get end time of interval: tierPhones, numPhoneIntervals
 	
+	thisFileName$ = selected$ ("TextGrid", 1)
 	fileEndTime = Get end time
 	numPoints = Get number of points: tierPoints
 	numLevels = Get number of points: tierLevels
@@ -104,6 +105,7 @@ procedure main
 
 	if numPoints <> numLevels
 		beginPause: "ERROR"
+			comment: thisFileName$
 			comment: "Your Points tier and Levels tier differ in number of labels"
 			comment: "CHECK YOUR LABELS (and possibly re-run the Levels labeller)"
 		endPause: "Quit", 1, 1

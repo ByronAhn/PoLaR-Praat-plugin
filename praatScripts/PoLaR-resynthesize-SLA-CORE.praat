@@ -36,11 +36,11 @@
 
 # --------------------
 # 
-#	Procedure main
+#	Procedure pseudoMain
 #	(The main function)
 # 
 # --------------------
-procedure main
+procedure pseudoMain
 	@versionChecker: 6, 1, 0
 	endeditor
 	numLogs=0

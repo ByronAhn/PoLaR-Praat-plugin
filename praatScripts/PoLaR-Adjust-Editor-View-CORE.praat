@@ -115,7 +115,7 @@ endif
 Pitch settings: f0MinAnalysis, f0MaxAnalysis, "Hertz", "autocorrelation", "speckles"
 Advanced pitch settings: 0.0, 0.0, very_accurate, number_of_candidates, silence_threshold, voicing_threshold, octave_cost, octave_jump_cost, voice_unvoiced_cost
 Time step settings: "fixed", time_step, 100
-Spectrogram settings: 0.0, 7000.0, 0.005, 40.0
+Spectrogram settings: 0.0, 7000.0, 0.005, 55.0
 
 # debugging:
 # writeInfoLine: f0MinAnalysis, newline$, f0MaxAnalysis, newline$, time_step, newline$, number_of_candidates, newline$, very_accurate, newline$, silence_threshold, newline$, voicing_threshold, newline$, octave_cost, newline$, octave_jump_cost, newline$, voice_unvoiced_cost

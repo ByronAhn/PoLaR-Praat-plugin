@@ -48,7 +48,7 @@ include PoLaR-Points-draft-labels-Quick-Settings.praat
 include PoLaR-Points-draft-labels-CORE.praat
 fromTGE=1 
 viewandedit=0
-@main
+@draftPointsMain
 
 selectObject: sndObj
 Remove
