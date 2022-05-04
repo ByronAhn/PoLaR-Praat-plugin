@@ -107,6 +107,7 @@ procedure consensusMain
 	@consensusPoints
 	@consensusRanges
 	@combineMiscTiers
+	@cleanUpDiscuss
 	
 	selectObject: tgC
 	Remove tier: tgCdeleted
@@ -396,7 +397,7 @@ procedure consensusPrStr
 		psTimeC = Get time of point: tgCprstr, .adjustedX
 		psC$ = Get label of point: tgCprstr, .adjustedX
 		psPhoneIndex = Get interval at time: tgCphones, psTimeC
-				# if there is a 2nd phones tier, check that they're in the same label there too
+		# if there is a 2nd phones tier, check that they're in the same label there too
 		if tgCphonesB > 0
 			psPhoneIndexB = Get interval at time: tgCphonesB, psTimeC
 		endif
@@ -411,10 +412,12 @@ procedure consensusPrStr
 					if psPhoneIndexB == prevpsPhoneIndexB
 						# being in here should mean the PrStr Label is in the same Phones-A tier label AND the same Phones-B tier label
 						.removeMe = 1
+						prevpsTimeC = Get time of point: tgCprstr, .adjustedX-1
 					endif
 				else
 					# being in here should mean the PrStr Label is in the same Phones tier label (and there's no Phones-B tier)
 					.removeMe = 1
+					prevpsTimeC = Get time of point: tgCprstr, .adjustedX-1
 				endif
 			endif
 		endif
@@ -429,7 +432,7 @@ procedure consensusPrStr
 			# add to the "deleted" tier a note that we've deleted a PrStr label that is repeated within the same Phone label
 			@addToTier: tgCdeleted, psTimeC, "PrStr: label repeated w/in Phone"
 			
-			# remove previously added "discuss" information about it only in one labeller's file… because we've deleted that label now!
+			# remove previously added "discuss" information for the deleted point… because we've deleted that label now!
 			.discussInd = Get nearest index from time: tgCdiscuss, psTimeC
 			.discussLabel$ = Get label of point: tgCdiscuss, .discussInd
 			if .discussLabel$ == "PrStr: only labeller A" || .discussLabel$ == "PrStr: only labeller B"
@@ -445,6 +448,23 @@ procedure consensusPrStr
 				endif
 				Set point text: tgCdiscuss, .discussInd, .discussLabel$
 			endif			
+
+			# remove previously added "discuss" information for the remaining point… because we've deleted that label now!
+			.discussInd = Get nearest index from time: tgCdiscuss, prevpsTimeC
+			.discussLabel$ = Get label of point: tgCdiscuss, .discussInd
+			if .discussLabel$ == "PrStr: only labeller A" || .discussLabel$ == "PrStr: only labeller B"
+				Remove point: tgCdiscuss, .discussInd
+			else
+				if index(.discussLabel$, "/ PrStr: only labeller") > 0
+					.discussLabel$ = replace$(.discussLabel$, " / PrStr: only labeller A", "", 0)
+					.discussLabel$ = replace$(.discussLabel$, " / PrStr: only labeller B", "", 0)
+				elsif index(.discussLabel$, "PrStr: only labeller A /") > 0
+					.discussLabel$ = replace$(.discussLabel$, "PrStr: only labeller A / ", "", 0)
+				elsif index(.discussLabel$, "PrStr: only labeller B /") > 0
+					.discussLabel$ = replace$(.discussLabel$, "PrStr: only labeller B / ", "", 0)
+				endif
+				Set point text: tgCdiscuss, .discussInd, .discussLabel$
+			endif
 		endif
 	endfor
 
@@ -476,19 +496,35 @@ procedure consensusPoints
 	numPointsA = Get number of points: tgApoints
 	for x to numPointsA
 		numCommas = 0
+		# numCommas has 4 possible values (determined by adding 1 to this value if A has a comma override and adding 2 to this value if B does):
+		#	0: neither A nor B has a comma overrride
+		#	1: only A has a comma override
+		#	2: only B has a comma override
+		#	3: both A + B have a comma override
+
 		numAdv = 0
+		# numAdv has 4 possible values (determined by adding 1 to this value if A has an advanced label and adding 2 to this value if B does):
+		#	0: neither A nor B has an advanced label
+		#	1: only A has an advanced label
+		#	2: only B has an advanced label
+		#	3: both A + B have an advanced label
+
 		selectObject: tgA
 		pointTimeA = Get time of point: tgApoints, x
 		pointA$ = Get label of point: tgApoints, x
 		@testCommaLabel: pointA$
 		commaLabelA = testCommaLabel.commaOverride
 		if commaLabelA <> -1
+			# being in here means A has a comma override
+			# setting this variable to be equal to 1; see description of values for numCommas at the beginning of this for-loop
 			numCommas = 1
 		endif
 		pointAnocomma$ = testCommaLabel.beforeTheComma$
 		@pointType: pointA$
 		thisPointTypeA$ = pointType.result$
 		if thisPointTypeA$ <> "0"
+			# being in here means A has an advanced label
+			# setting this variable to be equal to 1; see description of values for numAdv at the beginning of this for-loop
 			numAdv = 1
 		endif
 
@@ -515,17 +551,26 @@ procedure consensusPoints
 			# being here means there's at least 1 nearby point
 			for y from 1 to numNearbyPoints
 				#reminder: testNearbyPointExists.nearbyPoints#[y] is a list of the index vales from **tgB** of the Points label(s) that are near this time from tgA
+				
+				# get the time and label of the Point from tgB's Points tier
 				pointTimeB = object[tableB, testNearbyPointExists.nearbyPoints#[y], "tmin"]
 				pointB$ = object$[tableB, testNearbyPointExists.nearbyPoints#[y], "text"]
+				
+				# run a function to check if there's a comma label in this label, and get the value from that function
 				@testCommaLabel: pointB$
 				commaLabelB = testCommaLabel.commaOverride
+				
 				if commaLabelB <> -1
+					# being in here means B has a comma override
+					# adding 2 to this value; see description of values for numCommas at the beginning of this for-loop
 					numCommas = numCommas + 2
 				endif
 				pointBnocomma$ = testCommaLabel.beforeTheComma$
 				@pointType: pointB$
 				thisPointTypeB$ = pointType.result$
 				if thisPointTypeB$ <> "0"
+					# being in here means B has an advanced label
+					# adding 2 to this value; see description of values for numAdv at the beginning of this for-loop
 					numAdv = numAdv + 2
 				endif
 				
@@ -536,15 +581,21 @@ procedure consensusPoints
 					Insert point: tgCpoints, pointTimeA, pointA$
 					@addToTier: tgCdeleted, pointTimeA, "Points: from labeller B"				
 				else
+					#being in here means they have the different labels…
+
 					if numAdv == 0
+						# no advanced label by A or by B
 						coreLabel$ = "0"
 					elsif numAdv == 1
+						# advanced label by A, but not B
 						coreLabel$ = pointAnocomma$
 						timing = pointTimeA
 					elsif numAdv == 2
+						# advanced label by B, but not A
 						coreLabel$ = pointBnocomma$
 						timing = pointTimeB
 					elsif numAdv == 3
+						# advanced label both by A and by B
 						@compareAdvLabels: pointAnocomma$, pointBnocomma$
 						coreLabel$ = compareAdvLabels.adv$
 						numAdv = compareAdvLabels.which
@@ -552,20 +603,26 @@ procedure consensusPoints
 						@logging: "ERROR! Why is numAdv not some integer between 0 and 3 (inclusive)??"
 						coreLabel$ = ""
 					endif
-					
+
+					if numCommas == 0
+						# no comma ovverride by A or by B
+						timing = (pointTimeA + pointTimeB) / 2
+						comma = -1
 					if numCommas == 1
+						# comma override by A, but not B
 						timing = pointTimeA
 						comma = commaLabelA
 					elsif numCommas == 2
+						# comma override by B, but not A
 						timing = pointTimeB
 						comma = commaLabelB
 					elsif numCommas == 3
+						# comma override both by A and by B
 						@compareCommaLabels: commaLabelA, pointTimeA, commaLabelB, pointTimeB
 						timing = compareCommaLabels.pointTime
 						comma = compareCommaLabels.comma
 					else
 						@logging: "ERROR! Why is numCommas not some integer between 0 and 3 (inclusive)??"
-						timing = (pointTimeA + pointTimeB) / 2
 						comma = -1
 					endif
 					
@@ -889,7 +946,7 @@ procedure consensusRanges
 				# 	if Levels labels are different: XXXXX
 				selectObject: tgC
 				tgCstart = Get start time
-				@addToTier: tgCdiscuss, tgCstart+0.02, "Ranges: DANGER used labeller A's (randomly)"
+				@addToTier: tgCdiscuss, tgCstart+0.02, "Ranges: CHECKE! (randomly) used labeller A's"
 			else
 				#	use the Ranges tier where there are more labelled Ranges
 				# 	# more ranges = better… if it makes a difference on Levels associated with *s
@@ -1211,6 +1268,75 @@ procedure addToTier: .tier, .time, .text$
 endproc
 
 
+# --------------------
+# 
+#	Procedure cleanUpDiscuss
+#	(clean up the Discuss tier)
+# 
+# --------------------
+procedure cleanUpDiscuss
+	selectObject: tgC
+	.numDiscuss = Get number of points: tgCdiscuss
+	.numRemoved = 0
+	
+	for x from 1 to .numDiscuss
+		.adjustedX = x-.numRemoved
+		.label$ = Get label of point: tgCdiscuss, .adjustedX
+		if (index(.label$, "PrStr: only labeller")>0)
+			.length = length(.label$)
+			.start = index(.label$, "PrStr: only labeller")-1
+			.end = index(.label$, "PrStr: only labeller")+22
+			.labeller$ = mid$(.label$, .start+22, 1)
+			if (index(.label$, "PrStr: only labeller A /")>0) ||(index(.label$, "PrStr: only labeller B /")>0)
+				.end = index(.label$, "PrStr: only labeller")+25
+			endif
+			.ll$ = left$(.label$, .start)
+			.rl$ = mid$(.label$, .end, .length-.end+1)
+			.label$ = .ll$ + .rl$
+			.time = Get time of point: tgCdiscuss, .adjustedX
+			@prependToLabel: tgCprstr, .time, .labeller$
+		endif
+		if (index(.label$, "Points: only labeller")>0)
+			.length = length(.label$)
+			.start = index(.label$, "Points: only labeller")-1
+			.end = index(.label$, "Points: only labeller")+23
+			.labeller$ = mid$(.label$, .start+23, 1)
+			if (index(.label$, "Points: only labeller A /")>0) ||(index(.label$, "Points: only labeller B /")>0)
+				.end = index(.label$, "Points: only labeller")+26
+			endif
+			.ll$ = left$(.label$, .start)
+			.rl$ = mid$(.label$, .end, .length-.end+1)
+			.label$ = .ll$ + .rl$
+			.time = Get time of point: tgCdiscuss, .adjustedX
+			@prependToLabel: tgCpoints, .time, .labeller$
+		endif
+		if (index_regex(.label$, " / $")>0)
+			.label$ = left$(.label$, index_regex(.label$, " / $")-1)
+		endif
+		if index_regex (.label$, "^\s*$") > 0
+			Remove point: tgCdiscuss, .adjustedX
+			.numRemoved = .numRemoved + 1
+		endif
+	endfor
+endproc
+
+
+# --------------------
+# 
+#	Procedure prependToLabel
+#	(add some text to the a particular label)
+# 
+# --------------------
+procedure prependToLabel: .tier, .time, .text$
+	# first ensure that a point already exists on the target tier
+	@testPointExists: .tier, .time
+	if testPointExists.result == 1
+		.existingText$ = Get label of point: .tier, testPointExists.nearestIndex
+		.newText$ = .text$ + ":" + .existingText$
+		Set point text: .tier, testPointExists.nearestIndex, .newText$
+	endif
+endproc
+
 
 # --------------------
 # 
@@ -1239,6 +1365,7 @@ procedure testCommaLabel: .label$
 				.commaOverride = -1
 		endif
 	else
+		# If there is no comma in the Points tier object, set the variables to indicate that
 		.commaOverride = -1
 		.afterTheComma$ = ""
 		.beforeTheComma$ = .label$
