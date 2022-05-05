@@ -72,50 +72,70 @@ procedure consensusFinisherMain
 	# to-do: make this run syntax-checker too
 	# to-do: check for 1s and 5s in each Range
 
-	# delete the DISCUSS tier
+	# select just the textgrid now
 	selectObject: tgObj
+
+	# run this before *each* time you try to delete a tier
+	# AND after each time a tier is deleted
 	@findPoLaRConsensusTiers: tgObj
+
+	## delete the DISCUSS tier
 	# if tierDiscuss > 0
+	#	@findPoLaRConsensusTiers: tgObj
 	# 	Remove tier: tierDiscuss
+	#	@findPoLaRConsensusTiers: tgObj
 	# endif
 	
 	# if there is a tier called "Ranges" with some numbers in it, delete "Ranges-A"/"Ranges-B"/"Levels-A"/"Levels-B" tiers that exist
 	selectObject: tgObj
-	@findPoLaRConsensusTiers: tgObj
 	numRangesWithNumbers = 0
 	if tierRanges > 0
 		numRangesWithNumbers = Count intervals where: tierRanges, "matches (regex)", "\d+"
 		if numRangesWithNumbers > 0
 			if tierRangesA > 0
+				@findPoLaRConsensusTiers: tgObj
 				Remove tier: tierRangesA
 				if tierLevelsA > 0
+					@findPoLaRConsensusTiers: tgObj
 					Remove tier: tierLevelsA
 				endif
+				@findPoLaRConsensusTiers: tgObj
 			endif
-			@findPoLaRConsensusTiers: tgObj
 			if tierRangesB > 0
+				@findPoLaRConsensusTiers: tgObj
 				Remove tier: tierRangesB
 				if tierLevelsB > 0
+					@findPoLaRConsensusTiers: tgObj
 					Remove tier: tierLevelsB
 				endif
+				@findPoLaRConsensusTiers: tgObj
 			endif
-			@findPoLaRConsensusTiers: tgObj
+
+			# and now run the levels labeller
 			selectObject: tgObj, sndObj
 			viewandedit=0
 			fromTGE=1
 			@levelsLabellerMain
+
+			# and just in case, make sure jus the textgrid is selected
 			selectObject: tgObj
 		else
 			if tierRangesA > 0 && tierRangesB == 0
+				@findPoLaRConsensusTiers: tgObj
+				Remove tier: tierRanges
+				@findPoLaRConsensusTiers: tgObj
+				Remove tier: tierLevels
+				@findPoLaRConsensusTiers: tgObj
 				Set tier name: tierRangesA, "Ranges"
 				Set tier name: tierLevelsA, "Levels"
-				Remove tier: tierRanges
-				Remove tier: tierLevels
 			elsif tierRangesB > 0 && tierRangesA == 0
+				@findPoLaRConsensusTiers: tgObj
+				Remove tier: tierRanges
+				@findPoLaRConsensusTiers: tgObj
+				Remove tier: tierLevels
+				@findPoLaRConsensusTiers: tgObj
 				Set tier name: tierRangesB, "Ranges"
 				Set tier name: tierLevelsB, "Levels"
-				Remove tier: tierRanges
-				Remove tier: tierLevels
 			endif
 		endif
 	else 
@@ -128,7 +148,6 @@ procedure consensusFinisherMain
 
 	# if there is only one of the following "Words-A"/"Words-B", rename it to "Words"
 	selectObject: tgObj
-	@findPoLaRConsensusTiers: tgObj
 	if tierWordsA > 0 && tierWordsB == 0
 		Set tier name: tierWordsA, "Words"
 	elsif tierWordsB > 0 && tierWordsA == 0
@@ -137,7 +156,6 @@ procedure consensusFinisherMain
 
 	# if there is only one of the following "Phones-A"/"Phones-B", rename it to "Phones"
 	selectObject: tgObj
-	@findPoLaRConsensusTiers: tgObj
 	if tierPhonesA > 0 && tierPhonesB == 0
 		Set tier name: tierPhonesA, "Phones"
 	elsif tierPhonesB > 0 && tierPhonesA == 0
@@ -146,7 +164,6 @@ procedure consensusFinisherMain
 
 	# cycle through all the PrStr points and delete all the "A:" or "B:"s
 	selectObject: tgObj
-	@findPoLaRConsensusTiers: tgObj
 	numPrStr = Get number of points: tierPrstr
 	for x from 1 to numPrStr
 		label$ = Get label of point: tierPrstr, x
@@ -157,7 +174,6 @@ procedure consensusFinisherMain
 
 	# cycle through all the Points points and delete all the "A:" or "B:"s
 	selectObject: tgObj
-	@findPoLaRConsensusTiers: tgObj
 	numPoints = Get number of points: tierPoints
 	for x from 1 to numPoints
 		label$ = Get label of point: tierPoints, x
