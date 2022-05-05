@@ -75,9 +75,9 @@ procedure consensusFinisherMain
 	# delete the DISCUSS tier
 	selectObject: tgObj
 	@findPoLaRConsensusTiers: tgObj
-	if tierDiscuss > 0
-		Remove tier: tierDiscuss
-	endif
+	# if tierDiscuss > 0
+	# 	Remove tier: tierDiscuss
+	# endif
 	
 	# if there is a tier called "Ranges" with some numbers in it, delete "Ranges-A"/"Ranges-B"/"Levels-A"/"Levels-B" tiers that exist
 	selectObject: tgObj
@@ -92,6 +92,7 @@ procedure consensusFinisherMain
 					Remove tier: tierLevelsA
 				endif
 			endif
+			@findPoLaRConsensusTiers: tgObj
 			if tierRangesB > 0
 				Remove tier: tierRangesB
 				if tierLevelsB > 0
@@ -220,6 +221,8 @@ procedure findPoLaRConsensusTiers: .theTg
 			tierRangesA = x
 		elsif lowercaseTierName$ == "ranges-b"
 			tierRangesB = x
+		elsif lowercaseTierName$ == "discuss"
+			tierDiscuss = x
 		elsif lowercaseTierName$ == "misc"
 			tierMisc = x
 		endif
