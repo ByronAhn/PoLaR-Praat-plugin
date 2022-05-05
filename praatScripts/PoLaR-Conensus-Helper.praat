@@ -639,7 +639,9 @@ procedure consensusPoints
 					else
 						pointC$ = coreLabel$
 						pointTimeC = (pointTimeA + pointTimeB) / 2
-						@addToTier: tgCdiscuss, pointTimeC, "Points: decide between these comma overrride values (use ""sensitive view""!)"
+						#hm… not sure why the line below was incluced. seems like a mistake. leaving it here for now.
+						#to-do resolve this
+						#@addToTier: tgCdiscuss, pointTimeC, "Points: decide between these comma overrride values (use ""sensitive view""!)"
 					endif
 					
 					if coreLabel$ == ""
@@ -1288,7 +1290,7 @@ procedure cleanUpDiscuss
 			.start = index(.label$, "PrStr: only labeller")-1
 			.end = index(.label$, "PrStr: only labeller")+22
 			.labeller$ = mid$(.label$, .start+22, 1)
-			if (index(.label$, "PrStr: only labeller A /")>0) ||(index(.label$, "PrStr: only labeller B /")>0)
+			if (index(.label$, "PrStr: only labeller A /")>0) || (index(.label$, "PrStr: only labeller B /")>0)
 				.end = index(.label$, "PrStr: only labeller")+25
 			endif
 			.ll$ = left$(.label$, .start)
@@ -1314,6 +1316,7 @@ procedure cleanUpDiscuss
 		if (index_regex(.label$, " / $")>0)
 			.label$ = left$(.label$, index_regex(.label$, " / $")-1)
 		endif
+		Set point text: tgCdiscuss, .adjustedX, .label$
 		if index_regex (.label$, "^\s*$") > 0
 			Remove point: tgCdiscuss, .adjustedX
 			.numRemoved = .numRemoved + 1
