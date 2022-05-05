@@ -20,6 +20,7 @@ Add menu command: "TextGridEditor", "Tier", "PoLaR: Levels Labels", "", 0, "praa
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Extract info from PoLaR tiers", "", 0, "praatScripts/PoLaR-Extract-Info-to-TSV-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Pseudo Labels (Advanced labels req'd!)", "", 0, "praatScripts/PoLaR-to-pseudocategorical-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Blank PoLaR tiers", "", 0, "praatScripts/PoLaR-TextGrid-Blank-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Consensus Finisher", "", 0, "praatScripts/PoLaR-Conensus-Finisher.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Create picture (default settings)", "", 0, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Create picture (advanced)", "", 0, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE-Adv.praat"
 

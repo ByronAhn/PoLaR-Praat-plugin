@@ -4,7 +4,7 @@ README last updated: 2022/02/09
 
 ## Installation of the plugin
 1. **Download the plugin\_PoLaR.zip file**
-* Get the **zip file ([plugin_PoLaR.zip](https://github.com/ByronAhn/PoLaR-Praat-plugin/blob/main/plugin_PoLaR.zip))** from GitHub by clicking [here](https://github.com/ByronAhn/PoLaR-Praat-plugin/blob/main/plugin_PoLaR.zip)
+* Get the **zip file ([plugin_PoLaR.zip](https://github.com/ByronAhn/PoLaR-Praat-plugin/blob/main/plugin_PoLaR.zip?raw=true))** from GitHub by clicking [here](https://github.com/ByronAhn/PoLaR-Praat-plugin/blob/main/plugin_PoLaR.zip?raw=true)
 * Unzip the file, and you should find a new folder `plugin_PoLaR`
 	- We will move this folder shortly
 
@@ -40,7 +40,7 @@ README last updated: 2022/02/09
 ## Updating your plugin
 
 1. **Download the plugin\_PoLaR.zip file**
-* Get the **zip file ([plugin_PoLaR.zip](https://github.com/ByronAhn/PoLaR-Praat-plugin/blob/main/plugin_PoLaR.zip))** from GitHub by clicking [here](https://github.com/ByronAhn/PoLaR-Praat-plugin/blob/main/plugin_PoLaR.zip)
+* Get the **zip file ([plugin_PoLaR.zip](https://github.com/ByronAhn/PoLaR-Praat-plugin/blob/main/plugin_PoLaR.zip?raw=true))** from GitHub by clicking [here](https://github.com/ByronAhn/PoLaR-Praat-plugin/blob/main/plugin_PoLaR.zip?raw=true)
 * Unzip the file, and you should find a new folder `plugin_PoLaR`
 	- We will move this folder shortly
 

@@ -1,7 +1,7 @@
 ################################################################
 ###
 ### PoLaR-Conensus-Helper
-### v.2022.05.01
+### v.2022.05.04
 ###
 ###
 ### This script allows you to automate some portion of the consensus process. It is built on the algorithm described
@@ -608,7 +608,7 @@ procedure consensusPoints
 						# no comma ovverride by A or by B
 						timing = (pointTimeA + pointTimeB) / 2
 						comma = -1
-					if numCommas == 1
+					elsif numCommas == 1
 						# comma override by A, but not B
 						timing = pointTimeA
 						comma = commaLabelA
@@ -629,6 +629,7 @@ procedure consensusPoints
 
 					selectObject: tgC
 					
+					# if there is a comma override, the numerical value will be stored in "comma" (otherwise "comma" has a value of -1)
 					if comma > 0
 						pointC$ = coreLabel$ + "," + string$(comma)
 						if coreLabel$ <> "" && numCommas == 3
@@ -946,7 +947,7 @@ procedure consensusRanges
 				# 	if Levels labels are different: XXXXX
 				selectObject: tgC
 				tgCstart = Get start time
-				@addToTier: tgCdiscuss, tgCstart+0.02, "Ranges: CHECKE! (randomly) used labeller A's"
+				@addToTier: tgCdiscuss, tgCstart+0.02, "Ranges: CHECK THIS! (randomly) used labeller A's"
 			else
 				#	use the Ranges tier where there are more labelled Ranges
 				# 	# more ranges = better… if it makes a difference on Levels associated with *s
@@ -1422,7 +1423,6 @@ include PoLaR-Levels-labeller-CORE.praat
 
 ################################################################
 ###  
-### end of PoLaR-Extract-Info-to-TSV-CORE
+### end of PoLaR-Conensus-Helper
 ### 
 ################################################################
-
