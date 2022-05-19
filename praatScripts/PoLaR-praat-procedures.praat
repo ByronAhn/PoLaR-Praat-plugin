@@ -186,6 +186,136 @@ endproc
 
 # --------------------
 # 
+#	Procedure pointingAtWhatPrStr
+#	(Find the PrStr tier label(s) that an advanced Points label is pointing at)
+# 
+# --------------------
+procedure pointingAtWhatPrStr: .point$, .pointTime
+	selectObject: theTg
+	.pointsNumMax = Get number of points: tierPoints
+
+	#deconstruct Points label into parts
+	#start by seeing if there is a *, ], or [ in the Points label
+	.pointTypeChar = index_regex(.point$, "[\*\[\]]")
+	if .pointTypeChar > 0
+		#store the *, ], or [ character as the "type" of this advanced Point
+		.pointType$ = mid$(.point$, .pointTypeChar, 1)
+		
+		#get the pointer character (>, <, or @) and store it as the "pointer" for this advanced Point
+		.pointPointerChar = index_regex(.point$, "[<>@]")
+		.pointPointer$ = mid$(.point$, .pointPointerChar, 1)
+
+		#this variable will be set to the "type" of PrStr labels, but initialize it as ""
+		.prstrType$ = ""
+		
+		# if we're looking leftwards, we're going to be moving backwards through PrStr labels
+		if .pointPointer$ == "<"
+			x = 0
+
+			# get the index of the PrStr label that is at/before the time of this Points tier label
+			.prStrIndex = Get low index from time: tierPrStr, .pointTime
+
+			# this while loop incrementally moves leftward on the PrStr tier, looking for PrStr labels that have the same "type" as the advanced Points label
+			while .prstrType$ != .pointType$ && .prStrIndex > 0
+				.prStrIndex = .prStrIndex - x
+				.prstr$ = Get label of point: tierPrStr, .prStrIndex
+				.prstrTime = Get time of point: tierPrStr, .prStrIndex
+				.prstrTypeChar = index_regex(.prstr$, "[\*\[\]]")
+				.prstrType$ = mid$(.prstr$, .prstrTypeChar, 1)
+				x = x + 1
+			endwhile
+
+		# if we're looking rightwards (or at the same time), we're going to be moving forwards through PrStr labels
+		# (note that the "@" type is collapsed with this one… maybe return to this to make it only work for "@" type pointers if there is a PrStr label within a narrow time window…)
+		elsif (.pointPointer$ == ">" || .pointPointer$ == "@")
+			x = 0
+			.prStrIndex = Get high index from time: tierPrStr, .pointTime
+
+			# this while loop incrementally moves rightward on the PrStr tier, looking for PrStr labels that have the same "type" as the advanced Points label
+			while .prstrType$ != .pointType$ && .prStrIndex < .pointsNumMax
+				.prStrIndex = .prStrIndex + x
+				.prstr$ = Get label of point: tierPrStr, .prStrIndex
+				.prstrTime = Get time of point: tierPrStr, .prStrIndex
+				.prstrTypeChar = index_regex(.prstr$, "[\*\[\]]")
+				.prstrType$ = mid$(.prstr$, .prstrTypeChar, 1)
+				x = x + 1
+			endwhile
+
+		# what if the Points label doesn't contain a <, >, or @?
+		else
+			# set variables to indicate this
+			.prStrIndex = 0
+			.prstrTime = 0
+			.prstr$ = ""
+			.prstrType$ = ""
+		endif
+
+		# if there is a "/" in the Points label, we'll need to do this again for the advanced Points label that's after the slash
+		# (I'm assuming a maximum of one "/" per Points label… there might be edge cases I'm not thinking of)
+		if index(.point$, "/") > 0
+
+			# the contents of this if-statement chunk are IDENTICAL to the code above, except that it saves all the info into different variables
+			
+			.partB$ = mid$(.point$, index(.point$, "/")+1, length(.point$)-index(.point$, "/"))
+			.pointTypeCharB = index_regex(.partB$, "[\*\[\]]")
+			.pointTypeB$ = mid$(.partB$, .pointTypeCharB, 1)
+			.pointPointerCharB = index_regex(.partB$, "[<>@]")
+			.pointPointerB$ = mid$(.partB$, .pointPointerCharB, 1)
+
+			.pointTypeB$ = ""
+			if .pointPointerB$ == "<" && .prStrIndexB > 0
+				x = 0
+				.prStrIndexB = Get low index from time: tierPrStr, .pointTime
+				while .prstrTypeB$ != .pointTypeB$
+					.prStrIndexB = .prStrIndexB - x
+					.prstrB$ = Get label of point: tierPrStr, .prStrIndexB
+					.prstrTimeB = Get time of point: tierPrStr, .prStrIndexB
+					.prstrTypeCharB = index_regex(.prstrB$, "[\*\[\]]")
+					.prstrTypeB$ = mid$(.prstrB$, .prstrTypeCharB, 1)
+					x = x + 1
+				endwhile
+			elsif (.pointPointerB$ == ">" || .pointPointerB$ == "@")
+				x = 0
+				.prStrIndexB = Get high index from time: tierPrStr, .pointTime
+				while .prstrTypeB$ != .pointTypeB$ && .prStrIndexB < .pointsNumMax
+					.prStrIndexB = .prStrIndexB + x
+					.prstrB$ = Get label of point: tierPrStr, .prStrIndexB
+					.prstrTimeB = Get time of point: tierPrStr, .prStrIndexB
+					.prstrTypeCharB = index_regex(.prstrB$, "[\*\[\]]")
+					.prstrTypeB$ = mid$(.prstrB$, .prstrTypeCharB, 1)
+					x = x + 1
+				endwhile
+			endif
+			else
+				.prStrIndexB = 0
+				.prstrTimeB = 0
+				.prstrB$ = ""
+				.prstrTypeB$ = ""
+
+		# what if there is no "/" in the advanced Points label?
+		else
+			# set variables to indicate this
+			.prStrIndexB = 0
+			.prstrTimeB = 0
+			.prstrB$ = ""
+			.prstrTypeB$ = ""
+		endif
+	else
+		# if in here, there are *no* PrStr labels being pointed at
+		.prStrIndex = 0
+		.prstr$ = ""
+		.prstrTime = 0
+		.prstrType$ = ""
+		.prStrIndexB = 0
+		.prstrB$ = ""
+		.prstrTimeB = 0
+		.prstrTypeB$ = ""
+	endif
+endproc
+
+
+# --------------------
+# 
 #	Procedure logging
 #	(Used to write messages to info window, or to a file, depending on the variables)
 # 

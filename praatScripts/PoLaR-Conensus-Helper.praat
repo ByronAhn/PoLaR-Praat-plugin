@@ -1,7 +1,7 @@
 ################################################################
 ###
 ### PoLaR-Conensus-Helper
-### v.2022.05.04
+### v.2022.05.06
 ###
 ###
 ### This script allows you to automate some portion of the consensus process. It is built on the algorithm described
@@ -528,7 +528,7 @@ procedure consensusPoints
 			numAdv = 1
 		endif
 
-		# check to see if there is a corresponding point on tgB within 20ms
+		# check to see if there is a corresponding point on tgB within a short window of time
 		selectObject: tgB
 		@testNearbyPointExists: tableB, tgBpoints, pointTimeA
 
@@ -541,7 +541,8 @@ procedure consensusPoints
 			# if it is a non-"0"-type label or has a comma override
 			if thisPointTypeA$ <> "0" || commaLabelA >= 0
 				selectObject: tgC
-				Insert point: tgCpoints, pointTimeA, pointA$
+				#@logging: "adding " + pointA$ + " at " + string$(pointTimeA) + " (code 1)"
+				@addToTier: tgCpoints, pointTimeA, pointA$
 				@addToTier: tgCdiscuss, pointTimeA, "Points: only labeller A"				
 			else
 				selectObject: tgC
@@ -550,8 +551,11 @@ procedure consensusPoints
 		else
 			# being here means there's at least 1 nearby point
 			for y from 1 to numNearbyPoints
+				numCommasB = numCommas
+				numAdvB = numAdv
+
 				#reminder: testNearbyPointExists.nearbyPoints#[y] is a list of the index vales from **tgB** of the Points label(s) that are near this time from tgA
-				
+			
 				# get the time and label of the Point from tgB's Points tier
 				pointTimeB = object[tableB, testNearbyPointExists.nearbyPoints#[y], "tmin"]
 				pointB$ = object$[tableB, testNearbyPointExists.nearbyPoints#[y], "text"]
@@ -563,7 +567,7 @@ procedure consensusPoints
 				if commaLabelB <> -1
 					# being in here means B has a comma override
 					# adding 2 to this value; see description of values for numCommas at the beginning of this for-loop
-					numCommas = numCommas + 2
+					numCommasB = numCommas + 2
 				endif
 				pointBnocomma$ = testCommaLabel.beforeTheComma$
 				@pointType: pointB$
@@ -571,58 +575,64 @@ procedure consensusPoints
 				if thisPointTypeB$ <> "0"
 					# being in here means B has an advanced label
 					# adding 2 to this value; see description of values for numAdv at the beginning of this for-loop
-					numAdv = numAdv + 2
+					numAdvB = numAdv + 2
 				endif
 				
 				#if they have the same label, add just one of them (randomly), and mark on the deleted one on the DISCUSS tier
 				if pointA$ == pointB$
 					selectObject: tgC
-					# to-do MAKE RANDOM:
-					Insert point: tgCpoints, pointTimeA, pointA$
-					@addToTier: tgCdeleted, pointTimeA, "Points: from labeller B"				
+					@testPointExists: tgCpoints, pointTimeA
+					#when two points are near each other, "testNearbyPointExists" will find the points twice: once looking at the first point (finding the later one as "nearby") and once looking at the second (finding the earlier one as "nearby")
+					#since we don't want both added, this test will make sure that a Point hasn't been added to tgC yet
+					if testPointExists.result == 0
+						#@logging: "adding " + pointA$ + " at " + string$(pointTimeA) + " (code 2)"
+						# to-do MAKE RANDOM:
+						Insert point: tgCpoints, pointTimeA, pointA$
+						@addToTier: tgCdeleted, pointTimeA, "Points: from labeller B"				
+					endif
 				else
 					#being in here means they have the different labels…
 
-					if numAdv == 0
+					if numAdvB == 0
 						# no advanced label by A or by B
 						coreLabel$ = "0"
-					elsif numAdv == 1
+					elsif numAdvB == 1
 						# advanced label by A, but not B
 						coreLabel$ = pointAnocomma$
 						timing = pointTimeA
-					elsif numAdv == 2
+					elsif numAdvB == 2
 						# advanced label by B, but not A
 						coreLabel$ = pointBnocomma$
 						timing = pointTimeB
-					elsif numAdv == 3
+					elsif numAdvB == 3
 						# advanced label both by A and by B
 						@compareAdvLabels: pointAnocomma$, pointBnocomma$
 						coreLabel$ = compareAdvLabels.adv$
-						numAdv = compareAdvLabels.which
+						numAdvB = compareAdvLabels.which
 					else
-						@logging: "ERROR! Why is numAdv not some integer between 0 and 3 (inclusive)??"
+						@logging: "OOPS! Why is numAdv not some integer between 0 and 3 (inclusive)??"
 						coreLabel$ = ""
 					endif
 
-					if numCommas == 0
+					if numCommasB == 0
 						# no comma ovverride by A or by B
 						timing = (pointTimeA + pointTimeB) / 2
 						comma = -1
-					elsif numCommas == 1
+					elsif numCommasB == 1
 						# comma override by A, but not B
 						timing = pointTimeA
 						comma = commaLabelA
-					elsif numCommas == 2
+					elsif numCommasB == 2
 						# comma override by B, but not A
 						timing = pointTimeB
 						comma = commaLabelB
-					elsif numCommas == 3
+					elsif numCommasB == 3
 						# comma override both by A and by B
 						@compareCommaLabels: commaLabelA, pointTimeA, commaLabelB, pointTimeB
 						timing = compareCommaLabels.pointTime
 						comma = compareCommaLabels.comma
 					else
-						@logging: "ERROR! Why is numCommas not some integer between 0 and 3 (inclusive)??"
+						@logging: "OOPS! Why is numCommas not some integer between 0 and 3 (inclusive)??"
 						comma = -1
 					endif
 					
@@ -632,7 +642,7 @@ procedure consensusPoints
 					# if there is a comma override, the numerical value will be stored in "comma" (otherwise "comma" has a value of -1)
 					if comma > 0
 						pointC$ = coreLabel$ + "," + string$(comma)
-						if coreLabel$ <> "" && numCommas == 3
+						if coreLabel$ <> "" && numCommasB == 3
 							pointTimeC = (pointTimeA + pointTimeB) / 2
 							@addToTier: tgCdiscuss, pointTimeC, "Points: averaged comma override"
 						endif
@@ -646,20 +656,25 @@ procedure consensusPoints
 					
 					if coreLabel$ == ""
 						# add both points
-						Insert point: tgCpoints, pointTimeA, pointA$
-						Insert point: tgCpoints, pointTimeB, pointB$
+						#@logging: "adding " + pointA$ + " at " + string$(pointTimeA) + " (code 3)"
+						@addToTier: tgCpoints, pointTimeA, pointA$
+						#@logging: "adding " + pointB$ + " at " + string$(pointTimeB) + " (code 4)"
+						@addToTier: tgCpoints, pointTimeB, pointB$
 						pointTimeC = (pointTimeA + pointTimeB) / 2
 						@addToTier: tgCdiscuss, pointTimeC, "Points: different advanced labels"
 					else 
 						# add point at time 'timing' with label 'pointC$' on 'tgCpoints' tier
-						Insert point: tgCpoints, timing, pointC$
-
-						if numAdv == 1
-							# deleted note at time pointTimeB
-							@addToTier: tgCdeleted, pointTimeB, pointB$
-						elsif numAdv == 2
-							# deleted note at time pointTimeA
-							@addToTier: tgCdeleted, pointTimeA, pointA$
+						@testPointExists: tgCpoints, timing
+						if testPointExists.result == 0
+							#@logging: "adding " + pointC$ + " at " + string$(timing) + " (code 5)"
+							Insert point: tgCpoints, timing, pointC$
+							if numAdvB == 1
+								# deleted note at time pointTimeB
+								@addToTier: tgCdeleted, pointTimeB, pointB$
+							elsif numAdvB == 2
+								# deleted note at time pointTimeA
+								@addToTier: tgCdeleted, pointTimeA, pointA$
+							endif
 						endif
 					endif
 				endif
@@ -682,7 +697,7 @@ procedure consensusPoints
 		@pointType: pointB$
 		thisPointTypeB$ = pointType.result$
 
-		# check to see if there is a corresponding point on tgB within 20ms
+		# check to see if there is a corresponding point on tgB within a short window of time
 		selectObject: tgA
 		@testNearbyPointExists: tableA, tgApoints, pointTimeB
 
@@ -695,7 +710,8 @@ procedure consensusPoints
 			# if it is a non-"0"-type label or has a comma override
 			if thisPointTypeB$ <> "0" || commaLabelB >= 0
 				selectObject: tgC
-				Insert point: tgCpoints, pointTimeB, pointB$
+				#@logging: "adding " + pointB$ + " at " + string$(pointTimeB) + " (code 6)"
+				@addToTier: tgCpoints, pointTimeB, pointB$
 				@addToTier: tgCdiscuss, pointTimeB, "Points: only labeller B"
 			else
 				selectObject: tgC
@@ -1242,7 +1258,7 @@ procedure testNearbyPointExists: .table, .tier, .time
 	if .nearestIndex > 0
 		.nearestTime = Get time of point: .tier, .nearestIndex
 		selectObject: .table
-		.nearbyPoints# = List row numbers where: ".time - 0.02 <= self[row,""tmin""] && self[row,""tmin""] <= .time + 0.02"
+		.nearbyPoints# = List row numbers where: ".time - 0.05 <= self[row,""tmin""] && self[row,""tmin""] <= .time + 0.05"
 		.result = size(.nearbyPoints#)
 		endif
 	else

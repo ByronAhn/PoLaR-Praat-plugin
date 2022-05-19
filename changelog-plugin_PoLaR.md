@@ -1,3 +1,9 @@
+# 2022-05-19
+* Moved the "standard/sensitive view" tools to the "Pitch" menu, so that it can be accessed when there is no TextGrid
+* Fixed the "standard/sensitive view" algorithms to better estimate max/min (in the absence of Ranges values)
+* Updates to the PoLaR-Conensus-Helper.praat and PoLaR-Conensus-Finisher.praat scripts
+* Cleaned up files (removed .praat scripts that weren't being used any more)
+
 # 2022-05-01
 * Added the first version of PoLaR-Conensus-Helper.praat (did some minor edits to some adjacent scripts to support it)
 

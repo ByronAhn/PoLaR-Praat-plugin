@@ -13,14 +13,16 @@ Text reading preferences: "try UTF-8, then ISO Latin-1"
 ####################################################
 # Add the menu commands within the TextGrid editor #
 ####################################################
-Add menu command: "TextGridEditor", "Tier", "PoLaR: Standard view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Standard.praat"
-Add menu command: "TextGridEditor", "Tier", "PoLaR: Sensitive view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Sensitive.praat"
+Add menu command: "SoundEditor", "Pitch", "PoLaR: Standard view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Standard.praat"
+Add menu command: "SoundEditor", "Pitch", "PoLaR: Sensitive view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Sensitive.praat"
+Add menu command: "TextGridEditor", "Pitch", "PoLaR: Standard view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Standard.praat"
+Add menu command: "TextGridEditor", "Pitch", "PoLaR: Sensitive view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Sensitive.praat"
+# Add menu command: "TextGridEditor", "Tier", "PoLaR: Standard view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Standard.praat"
+# Add menu command: "TextGridEditor", "Tier", "PoLaR: Sensitive view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Sensitive.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Resynthesize Straight Line Approximation", "", 0, "praatScripts/PoLaR-resynthesize-SLA-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Levels Labels", "", 0, "praatScripts/PoLaR-Levels-labeller-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Extract info from PoLaR tiers", "", 0, "praatScripts/PoLaR-Extract-Info-to-TSV-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Pseudo Labels (Advanced labels req'd!)", "", 0, "praatScripts/PoLaR-to-pseudocategorical-from-TGE.praat"
-Add menu command: "TextGridEditor", "Tier", "PoLaR: Blank PoLaR tiers", "", 0, "praatScripts/PoLaR-TextGrid-Blank-from-TGE.praat"
-Add menu command: "TextGridEditor", "Tier", "PoLaR: Consensus Finisher", "", 0, "praatScripts/PoLaR-Conensus-Finisher.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Create picture (default settings)", "", 0, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Create picture (advanced)", "", 0, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE-Adv.praat"
 
@@ -48,7 +50,6 @@ Add action command: "Sound", 1, "TextGrid", 1, "", 0, "Pseudo Labels (Adv. label
 Add action command: "Sound", 1, "TextGrid", 1, "", 0, "Levels Labels (Advanced)", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-Levels-labeller-Advanced.praat"
 Add action command: "Sound", 1, "TextGrid", 1, "", 0, "Levels Labels (Quick)", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-Levels-labeller-Quick.praat"
 Add action command: "Sound", 1, "TextGrid", 1, "", 0, "Extract info from PoLaR tiers", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-Extract-Info-to-TSV-Quick.praat"
-Add action command: "Sound", 1, "TextGrid", 2, "", 0, "Consensus Helper", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-Conensus-Helper.praat"
 
 
 ###############################################################################
@@ -56,7 +57,7 @@ Add action command: "Sound", 1, "TextGrid", 2, "", 0, "Consensus Helper", "PoLaR
 ###############################################################################
 Add action command: "TextGrid", 0, "", 0, "", 0, "PoLaR scripts", "", 0, ""
 
-### for Advanced-to-Basic
+### for adjusting labels in TextGrids
 Add action command: "TextGrid", 0, "", 0, "", 0, "PoLaR TextGrids ▾", "PoLaR scripts", 0, ""
 Add action command: "TextGrid", 0, "", 0, "", 0, "Pseudo Labels (Adv. labels req'd!)", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-to-pseudocategorical-Quick.praat"
 Add action command: "TextGrid", 0, "", 0, "", 0, "Only Blank PoLaR tiers (DANGER)", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-TextGrid-Blanker.praat"
