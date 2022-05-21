@@ -1,16 +1,23 @@
+# 2022-05-21
+* Put the "standard/sensitive view" tools back in the "Tier" menu whenever a TextGrid is opened (putting in the the "Pitch" menu caused Praat to sometimes crash)
+
+
 # 2022-05-19
 * Moved the "standard/sensitive view" tools to the "Pitch" menu, so that it can be accessed when there is no TextGrid
 * Fixed the "standard/sensitive view" algorithms to better estimate max/min (in the absence of Ranges values)
 * Updates to the PoLaR-Conensus-Helper.praat and PoLaR-Conensus-Finisher.praat scripts
 * Cleaned up files (removed .praat scripts that weren't being used any more)
 
+
 # 2022-05-01
 * Added the first version of PoLaR-Conensus-Helper.praat (did some minor edits to some adjacent scripts to support it)
+
 
 # 2022-02-24
 * Updated the TextGrid-Blank family of scripts, so as to allow the command to be called from a TextGrid Editor window
 * Modified the setup.praat to allow this
 * Draw-Sound-and-TextGrid scripts updated to change default "advanced" settings to be slightly more like the non-advanced settings
+
 
 # 2022-02-09
 * The drawing scripts now feature even more options (re: drawing f0, drawing spectrogram)

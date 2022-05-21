@@ -1,8 +1,8 @@
 ####################################################
 # PoLaR plugin for Praat                           #
-# v.2021.11.15
+# v.2022.05.21                                     #
 #                                                  #
-# Refer to the documentation in README-FIRST.txt   #
+# Refer to the documentation in README.md          #
 #                                                  #
 ####################################################
 
@@ -15,10 +15,10 @@ Text reading preferences: "try UTF-8, then ISO Latin-1"
 ####################################################
 Add menu command: "SoundEditor", "Pitch", "PoLaR: Standard view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Standard.praat"
 Add menu command: "SoundEditor", "Pitch", "PoLaR: Sensitive view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Sensitive.praat"
-Add menu command: "TextGridEditor", "Pitch", "PoLaR: Standard view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Standard.praat"
-Add menu command: "TextGridEditor", "Pitch", "PoLaR: Sensitive view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Sensitive.praat"
-# Add menu command: "TextGridEditor", "Tier", "PoLaR: Standard view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Standard.praat"
-# Add menu command: "TextGridEditor", "Tier", "PoLaR: Sensitive view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Sensitive.praat"
+# Add menu command: "TextGridEditor", "Pitch", "PoLaR: Standard view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Standard.praat"
+# Add menu command: "TextGridEditor", "Pitch", "PoLaR: Sensitive view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Sensitive.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Standard view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Standard.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Sensitive view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Sensitive.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Resynthesize Straight Line Approximation", "", 0, "praatScripts/PoLaR-resynthesize-SLA-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Levels Labels", "", 0, "praatScripts/PoLaR-Levels-labeller-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Extract info from PoLaR tiers", "", 0, "praatScripts/PoLaR-Extract-Info-to-TSV-from-TGE.praat"
