@@ -13,7 +13,7 @@
 
 include PoLaR-resynthesize-SLA-Quick-Settings.praat
 include PoLaR-resynthesize-SLA-CORE.praat
-@pseudoMain
+@resynthMain
 
 # Show resynthesized pitch with textgrid
 selectObject: theResynth, theTg

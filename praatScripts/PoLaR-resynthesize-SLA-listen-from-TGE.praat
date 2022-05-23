@@ -39,7 +39,7 @@ selectObject: tgObj, sndObj
 
 include PoLaR-resynthesize-SLA-Quick-Settings.praat
 include PoLaR-resynthesize-SLA-CORE.praat
-@pseudoMain
+@resynthMain
 
 selectObject: sndObj
 Play

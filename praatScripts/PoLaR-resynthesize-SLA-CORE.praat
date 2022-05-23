@@ -36,11 +36,11 @@
 
 # --------------------
 # 
-#	Procedure pseudoMain
+#	Procedure resynthMain
 #	(The main function)
 # 
 # --------------------
-procedure pseudoMain
+procedure resynthMain
 	@versionChecker: 6, 1, 0
 	endeditor
 	numLogs=0

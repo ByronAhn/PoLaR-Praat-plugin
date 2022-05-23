@@ -1,3 +1,7 @@
+# 2022-05-23
+* Added PoLaR-resynthesize-SLA-Dir.praat, to run resynthesis on an entire directory
+
+
 # 2022-05-21
 * Put the "standard/sensitive view" tools back in the "Tier" menu whenever a TextGrid is opened (putting in the the "Pitch" menu caused Praat to sometimes crash)
 
