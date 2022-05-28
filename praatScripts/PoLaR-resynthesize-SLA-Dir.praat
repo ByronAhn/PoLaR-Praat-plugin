@@ -16,6 +16,8 @@
 include PoLaR-resynthesize-SLA-Quick-Settings.praat
 include PoLaR-resynthesize-SLA-CORE.praat
 numUnmatchedWav = 0
+numWarnings = 0
+viewandedit=0
 
 # get directory / directory listing
 beginPause: "Where are your .wav and .Textgrid files?"

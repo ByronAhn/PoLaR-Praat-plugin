@@ -1,6 +1,6 @@
 ####################################################
 # PoLaR plugin for Praat                           #
-# v.2022.05.21                                     #
+# v.2022.05.28                                     #
 #                                                  #
 # Refer to the documentation in README.md          #
 #                                                  #
@@ -23,6 +23,7 @@ Add menu command: "TextGridEditor", "Tier", "PoLaR: Resynthesize Straight Line A
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Levels Labels", "", 0, "praatScripts/PoLaR-Levels-labeller-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Extract info from PoLaR tiers", "", 0, "praatScripts/PoLaR-Extract-Info-to-TSV-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Pseudo Labels (Advanced labels req'd!)", "", 0, "praatScripts/PoLaR-to-pseudocategorical-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Consensus Finisher (beta)", "", 0, "praatScripts/PoLaR-Conensus-Finisher.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Create picture (default settings)", "", 0, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Create picture (advanced)", "", 0, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE-Adv.praat"
 
@@ -50,6 +51,7 @@ Add action command: "Sound", 1, "TextGrid", 1, "", 0, "Pseudo Labels (Adv. label
 Add action command: "Sound", 1, "TextGrid", 1, "", 0, "Levels Labels (Advanced)", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-Levels-labeller-Advanced.praat"
 Add action command: "Sound", 1, "TextGrid", 1, "", 0, "Levels Labels (Quick)", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-Levels-labeller-Quick.praat"
 Add action command: "Sound", 1, "TextGrid", 1, "", 0, "Extract info from PoLaR tiers", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-Extract-Info-to-TSV-Quick.praat"
+Add action command: "Sound", 1, "TextGrid", 2, "", 0, "Consensus Helper (beta)", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-Conensus-Helper.praat"
 
 
 ###############################################################################
