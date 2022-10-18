@@ -1,3 +1,9 @@
+# 2022-10-18
+* Added PoLaR-TextGrid-Add-Missing.praat, to add any missing PoLaR tiers to a TextGrid
+* Added Remove-unspecified-tiers.praat, to allow a user to remove multiple tiers, except those named
+* Added PoLaR-Draw-Sound-and-TextGrid-Dir.praat (and some related PoLaR-Draw-Sound-and-TextGrid Praat scripts), to allow the drawing function to be run on an entire directory
+
+
 # 2022-05-23
 * Added PoLaR-resynthesize-SLA-Dir.praat, to run resynthesis on an entire directory
 

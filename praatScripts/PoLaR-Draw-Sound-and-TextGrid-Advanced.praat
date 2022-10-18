@@ -10,6 +10,8 @@
 ###
 ################################################################
 
+run_on_directory = 0
+
 form Input Parameter Values
 
 	comment Tick at least 1 box if you want to automatically save the drawing produced

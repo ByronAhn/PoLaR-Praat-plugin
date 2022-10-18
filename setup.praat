@@ -47,6 +47,7 @@ Add action command: "Sound", 1, "TextGrid", 1, "", 0, "PoLaR SLA (Quick+Quiet)",
 Add action command: "Sound", 1, "TextGrid", 1, "", 0, "PoLaR TextGrids ▾", "PoLaR scripts", 0, ""
 Add action command: "Sound", 0, "TextGrid", 0, "", 0, "Only Blank PoLaR tiers (DANGER)", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-TextGrid-Blanker.praat"
 Add action command: "Sound", 0, "TextGrid", 0, "", 0, "Blank PoLaR tiers", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-TextGrid-Blank.praat"
+Add action command: "Sound", 0, "TextGrid", 0, "", 0, "Add Missing PoLaR Tiers", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-TextGrid-Add-Missing.praat"
 Add action command: "Sound", 1, "TextGrid", 1, "", 0, "Pseudo Labels (Adv. labels req'd!)", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-to-pseudocategorical-Quick.praat"
 Add action command: "Sound", 1, "TextGrid", 1, "", 0, "Levels Labels (Advanced)", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-Levels-labeller-Advanced.praat"
 Add action command: "Sound", 1, "TextGrid", 1, "", 0, "Levels Labels (Quick)", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-Levels-labeller-Quick.praat"
@@ -59,11 +60,15 @@ Add action command: "Sound", 1, "TextGrid", 2, "", 0, "Consensus Helper (beta)",
 ###############################################################################
 Add action command: "TextGrid", 0, "", 0, "", 0, "PoLaR scripts", "", 0, ""
 
+
+
 ### for adjusting labels in TextGrids
 Add action command: "TextGrid", 0, "", 0, "", 0, "PoLaR TextGrids ▾", "PoLaR scripts", 0, ""
 Add action command: "TextGrid", 0, "", 0, "", 0, "Pseudo Labels (Adv. labels req'd!)", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-to-pseudocategorical-Quick.praat"
 Add action command: "TextGrid", 0, "", 0, "", 0, "Only Blank PoLaR tiers (DANGER)", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-TextGrid-Blanker.praat"
 Add action command: "TextGrid", 0, "", 0, "", 0, "Blank PoLaR tiers", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-TextGrid-Blank.praat"
+Add action command: "TextGrid", 0, "", 0, "", 0, "Add Missing PoLaR Tiers", "PoLaR TextGrids ▾", 1, "praatScripts/PoLaR-TextGrid-Add-Missing.praat"
+Add action command: "TextGrid", 0, "", 0, "", 0, "Remove unspecified tiers…", "PoLaR TextGrids ▾", 1, "praatScripts/Remove-unspecified-tiers.praat"
 
 
 ############################################################################
@@ -81,6 +86,7 @@ Add action command: "Sound", 1, "", 0, "", 0, "Manually configure settings (adva
 # Add the menu commands to the Objects window #
 ###############################################
 Add menu command: "Objects", "New", "-- PoLaR --", "Strings", 0, ""
+Add menu command: "Objects", "New", "PoLaR: Create pictures for files in a directory", "", 1, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-Dir.praat"
 Add menu command: "Objects", "New", "PoLaR: Extract PoLaR info from files in a directory", "", 1, "praatScripts/PoLaR-Extract-Info-to-TSV-Dir.praat"
 Add menu command: "Objects", "New", "PoLaR: Label the Levels tier for files in a directory", "", 1, "praatScripts/PoLaR-Levels-labeller-Dir.praat"
 Add menu command: "Objects", "New", "PoLaR: Label the Pseudo tier for files in a directory", "", 1, "praatScripts/PoLaR-to-pseudocategorical-Dir.praat"

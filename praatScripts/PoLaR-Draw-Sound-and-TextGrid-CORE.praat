@@ -39,10 +39,10 @@ procedure drawMain
 		exitScript: "Select at most one TextGrid file"
 	else
 		if let_the_script_determine_the_f0_draw_range = 0
-		beginPause: "Provide the f0 view range min/max:"
-			positive: "f0 range min", f0Min
-			positive: "f0 range max", f0Max
-		clicked = endPause: "Draw These", 1
+			beginPause: "Provide the f0 view range min/max:"
+				positive: "f0 range min", f0Min
+				positive: "f0 range max", f0Max
+			clicked = endPause: "Draw These", 1
 		endif
 		soundName$ = selected$ ("Sound", 1)
 		tgName$ = selected$ ("TextGrid", 1)
@@ -96,15 +96,15 @@ procedure soundAndTextgrid
 	endif
 
 	if draw_all_TextGrid_tiers = 0
-	beginPause: "TextGrid tiers to include in drawing:"
-		for iTier from 1 to totalTiers
-			tierNames$ [iTier] = Get tier name: iTier
-			tierNameVar$ [iTier] =  replace$(tierNames$ [iTier], " ", "\_ ", 0)
-			tierNameVar$ [iTier] =  replace_regex$ (tierNames$ [iTier], "[^0-9a-zA-Z_]", "_", 0)
-			tierNameVar$ [iTier] = "draw_" + tierNameVar$ [iTier] + "_tier"
-			boolean: tierNameVar$[iTier], 1
-		endfor
-	clicked = endPause: "Draw These", 1
+		beginPause: "TextGrid tiers to include in drawing:"
+			for iTier from 1 to totalTiers
+				tierNames$ [iTier] = Get tier name: iTier
+				tierNameVar$ [iTier] =  replace$(tierNames$ [iTier], " ", "\_ ", 0)
+				tierNameVar$ [iTier] =  replace_regex$ (tierNames$ [iTier], "[^0-9a-zA-Z_]", "_", 0)
+				tierNameVar$ [iTier] = "draw_" + tierNameVar$ [iTier] + "_tier"
+				boolean: tierNameVar$[iTier], 1
+			endfor
+		clicked = endPause: "Draw These", 1
 	endif
 
 #	Discover the tier number in the TextGrid for each of the PoLaR tiers
@@ -248,22 +248,28 @@ endproc
 # --------------------
 procedure saveIfTrue
 	if ('save_as_pdf' = 1) or ('save_as_eps' = 1) or ('save_as_png' = 1)
-		outDir$ = chooseDirectory$: "Choose the folder to save the drawing"
-		if right$(outDir$,1) <> "/" and right$(outDir$,1) <> "\"
-			outDir$ = outDir$ + "/"
+		if run_on_directory = 0
+			outputDir$ = chooseDirectory$: "Choose the folder to save the drawing"
+			if right$(outputDir$,1) <> "/" and right$(outputDir$,1) <> "\"
+				outputDir$ = outputDir$ + "/"
+			endif
+		else
+			# if run_on_directory=1, then this script should be getting called by PoLaR-Draw-Sound-and-TextGrid-Dir.praat
+			# and that script defines an output directory as the variable outDir$
+			outputDir$ = outDir$
 		endif
 	endif
 
 	if 'save_as_pdf' = 1
-		saveme$ = outDir$ + saveAsName$ + ".pdf"
+		saveme$ = outputDir$ + saveAsName$ + ".pdf"
 		Save as PDF file: saveme$
 	endif
 	if 'save_as_eps' = 1
-		saveme$ = outDir$ + saveAsName$ + ".eps"
+		saveme$ = outputDir$ + saveAsName$ + ".eps"
 		Write to EPS file: saveme$
 	endif
 	if 'save_as_png' = 1
-		saveme$ = outDir$ + saveAsName$ + ".png"
+		saveme$ = outputDir$ + saveAsName$ + ".png"
 		Save as 300-dpi PNG file: saveme$
 	endif
 endproc
@@ -311,6 +317,7 @@ procedure figureThingsOut
 	freqStepNum = 'spectrogram_settings_FreqMax' div 250
 	durTime = round ('durTime' * 1000) / 1000
 	endTime = round ('endTime' * 1000) / 1000
+
 endproc
 
 
@@ -383,8 +390,8 @@ procedure drawPitchSpec
 			viewRangeMin = f0_range_min
 			viewRangeMax = f0_range_max
 		elsif (use_Ranges_tier_as_draw_range = 1) and (tierRanges > 0)
-			viewRangeMin = rangeMin
-			viewRangeMax = rangeMax
+			viewRangeMin = rangeMin-15
+			viewRangeMax = rangeMax+15
 		else
 			viewRangeMin = Get minimum: startTime, endTime, "Hertz", "Parabolic"
 			viewRangeMax = Get maximum: startTime, endTime, "Hertz", "Parabolic"

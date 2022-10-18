@@ -10,6 +10,8 @@
 ###
 ################################################################
 
+run_on_directory = 0
+
 @saveSelection
 
 # First we need to select the TextGrid and Sound objects that are open in the TextGridEditor.
