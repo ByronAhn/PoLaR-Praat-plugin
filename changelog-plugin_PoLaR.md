@@ -1,3 +1,6 @@
+# 2023-05-30
+* Amended all the Editor Scripts so they work if the user has loaded a sound as a LongSound (PoLaR-to-pseudocategorical-from-TGE.praat, PoLaR-Conensus-Finisher.praat, PoLaR-Draw-Sound-and-TextGrid-from-TGE-Adv.praat, PoLaR-Draw-Sound-and-TextGrid-from-TGE.praat, PoLaR-Extract-Info-to-TSV-from-TGE.praat, PoLaR-Levels-labeller-from-TGE.praat, PoLaR-resynthesize-SLA-from-TGE.praat, PoLaR-resynthesize-SLA-listen-from-TGE.praat)
+
 # 2022-10-18
 * Added PoLaR-TextGrid-Add-Missing.praat, to add any missing PoLaR tiers to a TextGrid
 * Added Remove-unspecified-tiers.praat, to allow a user to remove multiple tiers, except those named

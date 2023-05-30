@@ -24,14 +24,24 @@
 editorInfo$= Editor info
 tgObj = extractNumber(editorInfo$, "Editor name: ")
 
-soundInfo$= Sound info
-sndLen = extractNumber(soundInfo$, "End time: ")
-if sndLen = undefined
-	beginPause: "ERROR"
-		comment: "You can only run this command if a TextGrid and Sound object are opened together!"
-	endPause: "Quit", 1, 1
-	exitScript() 
+soundInfo$ = nocheck Sound info
+if soundInfo$ == ""
+	# being in here means that a LongSound has been loaded
+	soundInfo$ = nocheck LongSound info
+	sndLen = extractNumber(soundInfo$, "Duration: ")
+	
+	if soundInfo$ == ""
+		# being in here means that no Sound/LongSound has been loaded
+		beginPause: "ERROR"
+			comment: "You can only run this command if a TextGrid and Sound object are opened together!"
+		endPause: "Quit", 1, 1
+		exitScript() 		
+	endif
+else
+	# being in here means that a Sound has been loaded
+	sndLen = extractNumber(soundInfo$, "End time: ")
 endif
+
 sndN$ = extractWord$ (soundInfo$, "Object name: ")
 Select: 0.0, sndLen
 Extract selected sound (time from 0)

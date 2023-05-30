@@ -19,15 +19,23 @@ tgObj = extractNumber(editorInfo$, "Editor name: ")
 tgLen = extractNumber(editorInfo$, "Editor end: ")
 Select: 0.0, tgLen
 
-soundInfo$ = Sound info
-
-# I CAN'T FIGURE OUT HOW TO CATCH AN ERROR WHEN THE SOUND IS NOT LOADED
-#if "soundInfo$" = "xxx"
-#	beginPause: "ERROR"
-#		comment: "To run this command the TextGrid and Sound must be opened **together**!"
-#	endPause: "Quit", 1, 1
-#	exitScript() 
-#endif
+soundInfo$ = nocheck Sound info
+if soundInfo$ == ""
+	# being in here means that a LongSound has been loaded
+	soundInfo$ = nocheck LongSound info
+	sndLen = extractNumber(soundInfo$, "Duration: ")
+	
+	if soundInfo$ == ""
+		# being in here means that no Sound/LongSound has been loaded
+		beginPause: "ERROR"
+			comment: "You can only run this command if a TextGrid and Sound object are opened together!"
+		endPause: "Quit", 1, 1
+		exitScript() 		
+	endif
+else
+	# being in here means that a Sound has been loaded
+	sndLen = extractNumber(soundInfo$, "End time: ")
+endif
 
 Extract selected sound (time from 0)
 sndN$ = extractWord$ (soundInfo$, "Object name: ")

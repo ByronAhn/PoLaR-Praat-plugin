@@ -1,6 +1,6 @@
 ####################################################
 # PoLaR plugin for Praat                           #
-# v.2022.05.28                                     #
+# v.2022.10.19                                     #
 #                                                  #
 # Refer to the documentation in README.md          #
 #                                                  #
@@ -23,6 +23,7 @@ Add menu command: "TextGridEditor", "Tier", "PoLaR: Resynthesize Straight Line A
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Levels Labels", "", 0, "praatScripts/PoLaR-Levels-labeller-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Extract info from PoLaR tiers", "", 0, "praatScripts/PoLaR-Extract-Info-to-TSV-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Pseudo Labels (Advanced labels req'd!)", "", 0, "praatScripts/PoLaR-to-pseudocategorical-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "PoLaR: Add missing PoLaR tiers", "", 0, "praatScripts/PoLaR-TextGrid-Add-Missing-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Consensus Finisher (beta)", "", 0, "praatScripts/PoLaR-Conensus-Finisher.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Create picture (default settings)", "", 0, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "PoLaR: Create picture (advanced)", "", 0, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE-Adv.praat"
@@ -93,3 +94,16 @@ Add menu command: "Objects", "New", "PoLaR: Label the Pseudo tier for files in a
 Add action command: "Sound", 0, "", 0, "", 0, "Save as .wav (multiple selected objects)", "", 0, "praatScripts/Save-multiple-Sounds-Textgrids.praat"
 Add action command: "TextGrid", 0, "", 0, "", 0, "Save as .Textgrid (multiple selected objects)", "", 0, "praatScripts/Save-multiple-Sounds-Textgrids.praat"
 Add action command: "Sound", 0, "TextGrid", 0, "", 0, "Save as .wav/.Textgrid (multiple selected objects)", "", 0, "praatScripts/Save-multiple-Sounds-Textgrids.praat"
+
+
+##############################################################
+# Add the menu commands to the "Praat" menu (Objects window) #
+##############################################################
+# Create PoLaR menu in the Praat menu (in the menu bar on mac / in Objects window in other OSs)
+Add menu command: "Objects", "Praat", "-- PoLaR --", "", 0, ""
+Add menu command: "Objects", "Praat", "PoLaR",  "", 0, ""
+Add menu command: "Objects", "Praat", "Create pictures for files in a directory", "PoLaR...", 1, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-Dir.praat"
+Add menu command: "Objects", "Praat", "Extract PoLaR info from files in a directory", "PoLaR...", 1, "praatScripts/PoLaR-Extract-Info-to-TSV-Dir.praat"
+Add menu command: "Objects", "Praat", "Label the Levels tier for files in a directory", "PoLaR...", 1, "praatScripts/PoLaR-Levels-labeller-Dir.praat"
+Add menu command: "Objects", "Praat", "Label the Pseudo tier for files in a directory", "PoLaR...", 1, "praatScripts/PoLaR-to-pseudocategorical-Dir.praat"
+Add menu command: "Objects", "Praat", "View & Edit", "", 0, "praatScripts/ViewAndEdit.praat"
