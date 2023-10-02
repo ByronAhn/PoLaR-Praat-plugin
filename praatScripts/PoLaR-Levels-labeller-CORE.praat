@@ -1,7 +1,7 @@
 ################################################################
 ###  
 ### PoLaR-Levels-labeller-CORE
-### v.2022.01.07
+### v.2023.09.10
 ###
 ### This script creates PoLaR "Levels" tier labels, on the basis of existing "Ranges" and "Points" annotations.
 ### 
@@ -60,21 +60,18 @@ procedure levelsLabellerMain
 	endif
 
 	# Ensure that exactly one Sound object and one TextGrid object are selected
-	if numberOfSelected () <> 2
-		exitScript: "Select exactly one Sound file AND one TextGrid file."
-	else
+	if ((numberOfSelected("TextGrid") + numberOfSelected("Sound") = 2) & (numberOfSelected("Sound")=1))
+		# being in here should mean that 1 sound object and 1 textgrid object are selected (maybe among other objects)
+	
 		soundName$ = selected$ ("Sound", 1)
 		tgName$ = selected$ ("TextGrid", 1)
-		origTgName$ = tgName$
-		if soundName$ = ""
-			exitScript: "You must select a Sound file"
-		endif
-		if tgName$ = ""
-			exitScript: "You must select a TextGrid file"
-		endif
+	
+		# store the Sound and TextGrid objects
 		theSound = selected ("Sound", 1)
 		origTg = selected ("TextGrid", 1)
 		theTg = selected ("TextGrid", 1)
+	else
+		exitScript: "Select one Sound file and one TextGrid file."
 	endif
 
 	@findPoLaRTiers: theTg
@@ -320,132 +317,6 @@ endwhile
 # Remove the Pitch object that was created for this interval
 selectObject: thePitch
 Remove
-endproc
-
-
-# --------------------
-# 
-#	Procedure transformF0ToLevel
-#	(Used to transform the f0 value into a levels scale, 1-5)
-# 
-# --------------------
-procedure transformF0ToLevel: .theF0, .theF0Min, .theF0Max
-	if .theF0 = undefined
-		# In case the F0 value is undefined for some reason
-		.theLevel$ = "???"
-
-	elsif .theF0 < .theF0Min
-		# In case the F0 value is outside of the range defined by the Range interval labels
-		@logging: tab$ + ">> ALERT <<" + newline$ + tab$ + tab$ + "The f0 found for the Points label at time " + string$(thisPointTime) + " (" + string$(.theF0) + ") was below the min-max set by the Range interval (" + string$(.theF0Min) + ")." + newline$ + tab$ + tab$ + "A Levels point was inserted with the label “???”. Consider changing your Ranges label, or consider using the “comma override” in the Points label." + newline$ + tab$ + tab$ + "(The latter may be favorable if you believe this is due to errors in software f0 tracking.)"
-		.theLevel$ = "???"
-
-	elsif .theF0 > .theF0Max
-		# In case the F0 value is outside of the range defined by the Range interval labels
-		@logging: tab$ + ">> ALERT <<" + newline$ + tab$ + tab$ + "The f0 found for the Points label at time " + string$(thisPointTime) + " (" + string$(.theF0) + ") was above the min-max range set by the Range interval (" + string$(.theF0Max) + ")." + newline$ + tab$ + tab$ + "A Levels point was inserted with the label “???”. Consider changing your Ranges label, or consider using the “comma override” in the Points label." + newline$ + tab$ + tab$ + "(The latter may be favorable if you believe this is due to errors in software f0 tracking.)"
-		.theLevel$ = "???"
-
-	else
-		## the simplest algorithm: 5 evenly spaced levels, on the basis of Hz values
-		##
-		## potential concern about the following algorithm for determining the Levels value: 
-		##		if Level 2 corresponds to the space between 150Hz and 165Hz, an f0 value of 165.1Hz
-		##		is going to be labelled as Level 3.
-		##
-		@roundTo: .theF0, 2
-		.theRoundedF0 = roundTo.result
-
-		.theLevelSpace = (.theF0Max - .theF0Min)/5
-		@roundTo: .theLevelSpace, 4
-		.theLevelSpace = roundTo.result
-
-		.theRelativeF0 = .theRoundedF0 - .theF0Min
-		@roundTo: .theRelativeF0, 2
-		.theRelativeF0 = roundTo.result
-
-		if .theRelativeF0 <= 0
-			# In case the rounded F0 value is equal to (or somehow less than) the f0 Min from the Range interval label
-			.theLevel$ = "1"
-
-		else
-			.theLevelNum = ceiling(.theRelativeF0/.theLevelSpace)
-			if .theLevelNum < 1
-				.theLevel$ = "<1"
-			elsif .theLevelNum > 5
-				.theLevel$ = ">5"
-			else
-				.theLevel$ = string$(.theLevelNum)
-			endif
-		endif
-
-		# FOR DEBUGGING: the following line also prints the f0 in the levels label
-		# .theLevel$ = string$(.theRoundedF0) + ": " + .theLevel$
-	endif
-endproc
-
-
-# --------------------
-# 
-#	Procedure transformF0ToSTLevel
-#	(Used to transform the f0 value into a levels scale, 1-5)
-# 
-# --------------------
-procedure transformF0ToSTLevel: .theF0, .theF0Min, .theF0Max
-	if .theF0 = undefined
-		# In case the F0 value is undefined for some reason
-		.theLevel$ = "???"
-
-	elsif .theF0 < .theF0Min
-		# In case the F0 value is outside of the range defined by the Range interval labels
-		@logging: tab$ + ">> ALERT <<" + newline$ + tab$ + tab$ + "The f0 found for the Points label at time " + string$(thisPointTime) + " (" + string$(.theF0) + ") was below the min-max set by the Range interval (" + string$(.theF0Min) + ")." + newline$ + tab$ + tab$ + "A Levels point was inserted with the label “???”. Consider changing your Ranges label, or consider using the “comma override” in the Points label." + newline$ + tab$ + tab$ + "(The latter may be favorable if you believe this is due to errors in software f0 tracking.)"
-		.theLevel$ = "???"
-
-	elsif .theF0 > .theF0Max
-		# In case the F0 value is outside of the range defined by the Range interval labels
-		@logging: tab$ + ">> ALERT <<" + newline$ + tab$ + tab$ + "The f0 found for the Points label at time " + string$(thisPointTime) + " (" + string$(.theF0) + ") was above the min-max range set by the Range interval (" + string$(.theF0Max) + ")." + newline$ + tab$ + tab$ + "A Levels point was inserted with the label “???”. Consider changing your Ranges label, or consider using the “comma override” in the Points label." + newline$ + tab$ + tab$ + "(The latter may be favorable if you believe this is due to errors in software f0 tracking.)"
-		.theLevel$ = "???"
-
-	else
-		## the simplest algorithm: 5 evenly spaced levels, on the basis of Hz values
-		##
-		## potential concern about the following algorithm for determining the Levels value: 
-		##		if Level 2 corresponds to the space between 150Hz and 165Hz, an f0 value of 165.1Hz
-		##		is going to be labelled as Level 3.
-		##
-		@roundTo: hertzToSemitones(.theF0Max), 2
-		.theRoundedSTMax = roundTo.result
-
-		@roundTo: hertzToSemitones(.theF0Min), 2
-		.theRoundedSTMin = roundTo.result
-
-		@roundTo: hertzToSemitones(.theF0), 2
-		.theRoundedST = roundTo.result
-
-		.theLevelSpace = (.theRoundedSTMax - .theRoundedSTMin)/5
-		@roundTo: .theLevelSpace, 4
-		.theLevelSpace = roundTo.result
-
-		.theRelativeST = .theRoundedST - .theRoundedSTMin
-		@roundTo: .theRelativeST, 2
-		.theRelativeST = roundTo.result
-
-		if .theRelativeST <= 0
-			# In case the rounded ST value is equal to (or somehow less than) the rounded ST Min
-			.theLevel$ = "1"
-
-		else
-			.theLevelNum = ceiling(.theRelativeST/.theLevelSpace)
-			if .theLevelNum < 1
-				.theLevel$ = "<1"
-			elsif .theLevelNum > 5
-				.theLevel$ = ">5"
-			else
-				.theLevel$ = string$(.theLevelNum)
-			endif
-		endif
-
-		# FOR DEBUGGING: the following line also prints the ST in the levels label
-		# .theLevel$ = string$(.theRoundedST) + ": " + .theLevel$
-	endif
 endproc
 
 

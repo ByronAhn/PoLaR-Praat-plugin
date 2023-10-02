@@ -1,7 +1,7 @@
 ################################################################
 ###  
 ### PoLaR-to-pseudocategorical-CORE
-### v.2021.11.08
+### v.2023.09.10
 ### 
 ### 
 ###  >>>>> IMPORTANT NOTE
@@ -55,10 +55,10 @@ procedure pseudoLabelsMain
 	@versionChecker: 6, 1, 38
 
 	numLogs=0
-	# Ensure that exactly one TextGrid object is selected
-	if numberOfSelected () <> 1
-		exitScript: "Select exactly one TextGrid file."
-	else
+	# Ensure that exactly one one TextGrid object is selected
+	if (numberOfSelected("TextGrid") = 1)
+		# being in here should mean that 1 textgrid object is selected (maybe among other objects)
+	
 		theTg = selected ("TextGrid", 1)
 		if new_TextGrid_file_in_Object_List = 1
 			tgName$ = selected$ ("TextGrid", 1)
@@ -67,6 +67,8 @@ procedure pseudoLabelsMain
 			selectObject: "TextGrid " + tgName$
 			theTg = selected("TextGrid", 1)	
 		endif
+	else
+		exitScript: "Select only one TextGrid file."
 	endif
 
 	@findPoLaRTiers: theTg

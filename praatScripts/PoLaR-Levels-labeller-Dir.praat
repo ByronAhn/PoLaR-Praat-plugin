@@ -14,16 +14,29 @@
 
 
 # variable settings
-include PoLaR-Levels-labeller-Quick-Settings.praat
+beginPause: "Pitch settings for straight line approximations"
+	comment: "Do you want to create a new TextGrid with these Levels labels?"
+	boolean: "new_TextGrid_file_in_Object_List", 0
+	comment: "==================================================================="
+	comment: "Which units of frequency do you want to use to determine Levels labels?"
+	boolean: "use_Raw_Hz", 1
+	boolean: "use_Semitones", 0
+	comment: "==================================================================="
+	comment: "Praat (Advanced) Pitch Settings:"
+	real: "time_step", 0.0025
+	integer: "number_of_candidates", 15
+	boolean: "very_accurate", 1
+	real: "silence_threshold", 0.03
+	real: "voicing_threshold", 0.5
+	real: "octave_cost", 0.05
+	real: "octave_jump_cost", 0.5
+	real: "voice_unvoiced_cost", 0.2
+	comment: "NOTE: f0 min and f0 max are set locally, by the Range tier labels"
+endPause: "Choose Folder", 1
 numUnmatchedWav = 0
 numWarnings = 0
 viewandedit=0
 
-# get directory / directory listing
-beginPause: "Where are your .wav and .Textgrid files?"
-	comment: "Hit the ""Choose Folder"" button to select the with your matching .wav and"
-	comment: ".Textgrid files, to extract PoLaR labels and PoLaR-based measures from."
-endPause: "Choose Folder", 1
 outDir$ = chooseDirectory$: "Choose the folder with matching .wav and .Textgrid files"
 if right$(outDir$,1) <> "/" and right$(outDir$,1) <> "\"
 	outDir$ = outDir$ + "/"

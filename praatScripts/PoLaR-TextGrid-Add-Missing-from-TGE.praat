@@ -30,46 +30,13 @@
 editorInfo$ = Editor info
 origTg = extractNumber(editorInfo$, "Editor name: ")
 endeditor
-selectObject: origTg
-tgName$ = selected$ ("TextGrid", 1)
 
-@findPoLaRTiers: origTg
-numTiers = Get number of tiers
-
-if tierPrStr = 0
-	tierPrStr=numTiers+1
-	Insert point tier: tierPrStr, "PrStr"
-	numTiers+=1
-endif
-
-if tierPoints = 0
-	tierPoints=tierPrStr+1
-	Insert point tier: tierPoints, "Points"
-	numTiers+=1
-endif
-
-if tierLevels = 0
-	tierLevels=tierPoints+1
-	Insert point tier: tierLevels, "Levels"
-	numTiers+=1
-endif
-
-if tierRanges = 0
-	tierRanges=tierLevels+1
-	Insert interval tier: tierRanges, "Ranges"
-	numTiers+=1
-endif
-
-if tierMisc = 0
-	tierMisc=tierRanges+1
-	Insert point tier: tierMisc, "misc"
-	numTiers+=1
-endif
+@addMissingPoLaRTiersMain: origTg
 
 @returnSelection
 
 
-include PoLaR-praat-procedures.praat
+include PoLaR-TextGrid-Add-Missing-CORE.praat
 
 
 

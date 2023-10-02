@@ -24,6 +24,7 @@ run_on_directory = 1
 manual_advanced_pitch_settings=0
 draw_all_TextGrid_tiers=1
 
+label PARAMETERSETTINGS
 beginPause: "Input Parameter Values"
 	comment: "FIRST, at least 1 box below *MUST* be ticked:"
 	boolean: "save as pdf", 0
@@ -44,18 +45,23 @@ beginPause: "Input Parameter Values"
 	comment: "FINALLY, hit the ""Choose Folder"" button to select the with your matching .wav and"
 	comment: ".Textgrid files, to extract PoLaR labels and PoLaR-based measures from."
 endPause: "Choose Folder", 1
+
+if ((save_as_pdf = 0) & (save_as_eps = 0) & (save_as_png = 0))
+	pause You must choose at least ONE format to save the image files
+	goto PARAMETERSETTINGS
+endif
+
 outDir$ = chooseDirectory$: "Choose the folder with matching .wav and .Textgrid files"
 if right$(outDir$,1) <> "/" and right$(outDir$,1) <> "\"
 	outDir$ = outDir$ + "/"
 endif
-stringsOfFiles = Create Strings as file list: "listOfFiles", outDir$ + "/*.*"
+
+theFiles$ = inDir$ + "*.*"
+listOfFiles$# = fileNames$#: theFiles$
 
 # run a for-loop, for each .wav file
-selectObject: stringsOfFiles
-numberOfFiles = Get number of strings
-for xF from 1 to numberOfFiles
-	selectObject: stringsOfFiles
-	aFilename$ = Get string: xF
+for xF from 1 to size(listOfFiles$#)
+	aFilename$ = listOfFiles$#[xF]
 
 	# settings from PoLaR-Draw-Sound-and-TextGrid-Quick-Settings.praat
 	spectrogram_settings_FreqMax=7000
@@ -80,13 +86,13 @@ for xF from 1 to numberOfFiles
 	numWarnings = 0
 
 	# target .wav files (regardless of capitalization)
-	lowercaseFilename$ = replace_regex$ (aFilename$, "[A-Z]", "\L&", 0) 
-	filenameLen = length(lowercaseFilename$)
-	extensionDotLoc = rindex(lowercaseFilename$, ".")
-
-	if right$(lowercaseFilename$, filenameLen-extensionDotLoc) = "wav"
+	extensionDotLoc = rindex(aFilename$, ".")
+	baseFilename$ = left$(aFilename$, extensionDotLoc-1)
+	extension$ = right$(aFilename$, length(aFilename$)-extensionDotLoc)
+	lowercaseExtension$ = replace_regex$ (extension$, "[A-Z]", "\L&", 0)
+	
+	if lowercaseExtension$ = "wav"
 		wavFilename$ = aFilename$
-		baseFilename$ = wavFilename$ - ".wav"
 		aWav = Read from file: outDir$ + baseFilename$ + ".wav"
 
 		# try to open a .Textgrid file of the same name
@@ -112,8 +118,6 @@ for xF from 1 to numberOfFiles
 		endif
 	endif
 endfor
-selectObject: stringsOfFiles
-Remove
 
 # this alerts the user if there were any .wav files without a matching .Textgrid file
 if numUnmatchedWav > 0 
@@ -122,8 +126,9 @@ if numUnmatchedWav > 0
 	for x to numUnmatchedWav
 		@logging: ">>>>  " + unmatchedWav$ [x]
 	endfor
+	@logging: "A drawing was created for each of these .wav files, but there is no TextGrid in the drawing."
 endif
-if numUnmatchedWav > 0 or numWarnings > 0
+if numWarnings > 0
 	@warningMsg: "ALERT: An issue came up; see the Praat Info window for details."
 endif
 @logging: "Done!"
