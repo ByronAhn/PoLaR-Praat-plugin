@@ -22,41 +22,41 @@ Text reading preferences: "try UTF-8, then ISO Latin-1"
 # Add the menu commands within the Sound editor #
 #################################################
 Add menu command: "SoundEditor", "Edit", "- PoLaR-assisted View Settings:", "", 0, ""
-Add menu command: "SoundEditor", "Edit", "Standard view settings", "", 0, "praatScripts/PoLaR-Adjust-Editor-View-Standard.praat"
-Add menu command: "SoundEditor", "Edit", "Sensitive view settings", "", 0, "praatScripts/PoLaR-Adjust-Editor-View-Sensitive.praat"
+Add menu command: "SoundEditor", "Edit", "Standard view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Standard.praat"
+Add menu command: "SoundEditor", "Edit", "Sensitive view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Sensitive.praat"
 
 Add menu command: "SoundEditor", "Edit", "- Create PoLaR-styled Drawing:", "", 0, ""
-Add menu command: "SoundEditor", "Edit", "Create picture", "", 0, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE.praat"
-Add menu command: "SoundEditor", "Edit", "Create picture (More Settings)", "", 0, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE-Adv.praat"
+Add menu command: "SoundEditor", "Edit", "Create picture", "", 1, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE.praat"
+Add menu command: "SoundEditor", "Edit", "Create picture (More Settings)", "", 1, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE-Adv.praat"
 
 Add menu command: "SoundEditor", "File", "- New PoLaR TextGrids:", "", 0, ""
-Add menu command: "SoundEditor", "File", "Create Blank PoLaR TextGrid", "", 0, "praatScripts/PoLaR-TextGrid-for-Sound-from-TGE.praat"
-Add menu command: "SoundEditor", "File", "Create PoLaR TextGrid with Momel-based labels", "", 0, "praatScripts/PoLaR-momel-labels-from-TGE-Sound.praat"
+Add menu command: "SoundEditor", "File", "Create Blank PoLaR TextGrid", "", 1, "praatScripts/PoLaR-TextGrid-for-Sound-from-TGE.praat"
+Add menu command: "SoundEditor", "File", "Create PoLaR TextGrid with Momel-based labels", "", 1, "praatScripts/PoLaR-momel-labels-from-TGE-Sound.praat"
 
 
 ####################################################
 # Add the menu commands within the TextGrid editor #
 ####################################################
 Add menu command: "TextGridEditor", "Edit", "- PoLaR-assisted View Settings:", "", 0, ""
-Add menu command: "TextGridEditor", "Edit", "Standard view settings", "", 0, "praatScripts/PoLaR-Adjust-Editor-View-Standard.praat"
-Add menu command: "TextGridEditor", "Edit", "Sensitive view settings", "", 0, "praatScripts/PoLaR-Adjust-Editor-View-Sensitive.praat"
+Add menu command: "TextGridEditor", "Edit", "Standard view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Standard.praat"
+Add menu command: "TextGridEditor", "Edit", "Sensitive view settings", "", 1, "praatScripts/PoLaR-Adjust-Editor-View-Sensitive.praat"
 
 Add menu command: "TextGridEditor", "Edit", "- Create PoLaR-styled Drawing:", "", 0, ""
-Add menu command: "TextGridEditor", "Edit", "Create picture", "", 0, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE.praat"
-Add menu command: "TextGridEditor", "Edit", "Create picture (More Settings)", "", 0, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE-Adv.praat"
+Add menu command: "TextGridEditor", "Edit", "Create picture", "", 1, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE.praat"
+Add menu command: "TextGridEditor", "Edit", "Create picture (More Settings)", "", 1, "praatScripts/PoLaR-Draw-Sound-and-TextGrid-from-TGE-Adv.praat"
 
 Add menu command: "TextGridEditor", "Tier", "- Modify/Inspect PoLaR TextGrids:", "", 0, ""
-Add menu command: "TextGridEditor", "Tier", "Add missing PoLaR tiers", "", 0, "praatScripts/PoLaR-TextGrid-Add-Missing-from-TGE.praat"
-Add menu command: "TextGridEditor", "Tier", "Extract info from PoLaR tiers", "", 0, "praatScripts/PoLaR-Extract-Info-to-TSV-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "Add missing PoLaR tiers", "", 1, "praatScripts/PoLaR-TextGrid-Add-Missing-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "Extract info from PoLaR tiers", "", 1, "praatScripts/PoLaR-Extract-Info-to-TSV-from-TGE.praat"
 
 Add menu command: "TextGridEditor", "Tier", "- Assess PoLaR Turning Points:", "", 0, ""
-Add menu command: "TextGridEditor", "Tier", "Adjust Points audio/visually", "", 0, "praatScripts/PoLaR-Adjust-Points-in-Manipulation-from-TGE.praat"
-Add menu command: "TextGridEditor", "Tier", "Resynthesize Straight Line Approximation", "", 0, "praatScripts/PoLaR-resynthesize-SLA-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "Adjust Points audio/visually", "", 1, "praatScripts/PoLaR-Adjust-Points-in-Manipulation-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "Resynthesize Straight Line Approximation", "", 1, "praatScripts/PoLaR-resynthesize-SLA-from-TGE.praat"
 
 Add menu command: "TextGridEditor", "Tier", "- Generate PoLaR Labels:", "", 0, ""
-Add menu command: "TextGridEditor", "Tier", "New Momel-based Points/Levels/Ranges", "", 0, "praatScripts/PoLaR-momel-labels-from-TGE.praat"
-Add menu command: "TextGridEditor", "Tier", "New Levels Labels", "", 0, "praatScripts/PoLaR-Levels-labeller-from-TGE.praat"
-Add menu command: "TextGridEditor", "Tier", "New Pseudo Labels (Advanced labels req'd!)", "", 0, "praatScripts/PoLaR-to-pseudocategorical-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "New Momel-based Points/Levels/Ranges", "", 1, "praatScripts/PoLaR-momel-labels-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "New Levels Labels", "", 1, "praatScripts/PoLaR-Levels-labeller-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "New Pseudo Labels (Advanced labels req'd!)", "", 1, "praatScripts/PoLaR-to-pseudocategorical-from-TGE.praat"
 
 
 

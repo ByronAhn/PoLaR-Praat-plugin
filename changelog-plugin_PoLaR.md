@@ -1,3 +1,7 @@
+# 2023-10-23
+* Minor updates for the UI changes made possible by Praat 6.3.18
+	- In Editor windows, the menu buttons now allow now divider bars and nested menus, to make organizing the plugin functions easier
+
 # 2023-09-18
 * Some big overhauls in this version:
 
