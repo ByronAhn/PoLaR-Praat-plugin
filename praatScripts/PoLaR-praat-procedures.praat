@@ -1,7 +1,7 @@
 ################################################################
 ###
 ### PoLaR-praat-procedures
-### v.2023.10.02
+### v.2023.11.07
 ###
 ###
 ### This file contains the procedures (which are like "functions" in other scripting
@@ -353,61 +353,21 @@ procedure handEditPoints: .theSnd, .theTg, .thePT
 		selectObject: .theSnd, .theTg
 		View & Edit
 
-		# for identifying the f0min/max in this recording
-		tempF0min = 10000
-		tempF0max = 0
-
-		selectObject: .thePT
-		nTargets = Get number of points
-		for iTarget from 1 to nTargets
-			selectObject: .thePT
-			time = Get time from index... iTarget
-			f0 = Get value at index... iTarget
-
-			# tracking global min/max:
-			if (f0 > tempF0max) 
-				tempF0max = f0
-			endif
-			if (f0 < tempF0min)
-				tempF0min = f0
-			endif
-		endfor
-
-		# round the global min/max down/up to the nearest 10
-		.rangeF0min = floor(tempF0min/10)*10
-		.rangeF0max = ceiling(tempF0max/10)*10
-
-		selectObject: .theSnd
-		.theManip = To Manipulation: 0.01, .rangeF0min, .rangeF0max
-		plus .thePT
-		Replace pitch tier
-
-		select .theManip
-		Edit
-		editor: .theManip
-		Set pitch range: .rangeF0min, .rangeF0max
-		endeditor
-		beginPause: "Hand-correct the Points targets"
-			comment: "Adjust the location of turning points in the Manipulation window, as necessary."
-			comment: "Then come back to this window and select an option below."
-			comment: "(Pressing 'Stop' quits the script without saving any changes.)"
-		saveIt = endPause: "Leave Unchanged", "Save Changes", 2
-
-		if (saveIt = 2)
-			selectObject: .thePT
-			Remove
-
-			selectObject: .theManip
-			.thePT = Extract pitch tier
-
-			# blank out Points and Levels tiers
+		# for identifying the f0min/max in this recording (to set Pitch Range values appropriately)…
+		# start by checking if there are any labelled Ranges intervals
+		numLabelledRanges = 0
+		if (tierRanges <> 0)
 			selectObject: .theTg
-			Remove tier: tierPoints
-			Insert point tier: tierPoints, "Points"
-			Remove tier: tierLevels
-			Insert point tier: tierLevels, "Levels"
+			numLabelledRanges = Count intervals where: tierRanges, "matches (regex)", ".*\d.*"
+		endif
 
-			# for identifying the f0min/max in this recording
+		if (tierRanges <> 0 && numLabelledRanges >= 1)
+			# if there is at least one labelled Ranges interval, use the global min/max from the labels to set the pitch range
+			@findGlobalMinMax: .theTg
+			.rangeF0max = findGlobalMinMax.globalMax + 25
+			.rangeF0min = findGlobalMinMax.globalMin - 25
+		else
+			# if there are no labelled Ranges intervals, use the global min/max from the points from the Momel algo to set the pitch range
 			tempF0min = 10000
 			tempF0max = 0
 
@@ -425,11 +385,103 @@ procedure handEditPoints: .theSnd, .theTg, .thePT
 				if (f0 < tempF0min)
 					tempF0min = f0
 				endif
+			endfor
+
+			# round the global min/max down/up to the nearest 10
+			.rangeF0min = floor(tempF0min/10)*10
+			.rangeF0max = ceiling(tempF0max/10)*10
+		endif
+		
+		# use Pitch Range values calculated above
+		selectObject: .theSnd
+		.theManip = To Manipulation: 0.01, .rangeF0min, .rangeF0max
+		plus .thePT
+		Replace pitch tier
+
+		select .theManip
+		Edit
+		editor: .theManip
+		Set pitch range: .rangeF0min, .rangeF0max
+		endeditor
+		beginPause: "Hand-correct the Points targets"
+			comment: "Adjust the location of turning points in the Manipulation window, as necessary."
+			comment: "Then come back to this window and select an option below."
+			comment: "(Pressing 'Stop' quits the script without saving any changes.)"
+		saveIt = endPause: "Leave Unchanged", "Save Changes", 2
+
+		if (saveIt = 2)
+			# back up the original PitchTier, from the original PoLaR labels
+			.bkupPT = .thePT
+
+			# create a new PitchTier, from the Manipulation
+			selectObject: .theManip
+			.thePT = Extract pitch tier
+
+			# blank out Levels tiers
+			selectObject: .theTg
+			Remove tier: tierLevels
+			Insert point tier: tierLevels, "Levels"
+
+			# duplicate Points tier (for keeping previous labels from unchanged Points) for now
+			tempTier = Get number of tiers
+			tempTier = tempTier + 1
+			Duplicate tier: tierPoints, tempTier, "tempTier"
+			# and blank out the Points tier
+			Remove tier: tierPoints
+			Insert point tier: tierPoints, "Points"
+
+			# for identifying the f0min/max in this recording, in case that has changed based on the Points from the Manipulation
+			tempF0min = 10000
+			tempF0max = 0
+
+			# cycle through all the Points in the PitchTier that was exported from the Manipulation
+			selectObject: .thePT
+			nTargets = Get number of points
+			for iTarget from 1 to nTargets
+				selectObject: .thePT
+				time = Get time from index... iTarget
+				f0 = Get value at index... iTarget
+
+				# tracking global min/max:
+				if (f0 > tempF0max) 
+					tempF0max = f0
+				endif
+				if (f0 < tempF0min)
+					tempF0min = f0
+				endif
+				
+				# check if there was a Points label already at this time/f0 (i.e., the PitchTier from the original PoLaR labels, which was stored in .bkupPT)
+				tempLabel$ = ""
+				selectObject: .bkupPT
+				tempIndex = Get nearest index from time: time
+				tempTime = Get time from index: tempIndex
+				if (time = tempTime)
+					# being here means there are Points at the same time in both the original and new PitchTiers
+					# check if the f0 values are identical
+					tempF0 = Get value at index: tempIndex
+					if (f0 = tempF0)
+						# being here means this Points was not changed in the Manipulation
+						# so let's preserve its original label (for purposes of reducing additional comma overrides, and for keeping advanced labels)
+						# the index of the Points from the original PitchTier should be the same as the index from the original Points tier
+						selectObject: .theTg
+						tempLabel$ = Get label of point: tempTier, tempIndex
+					endif
+				endif
 
 				selectObject: .theTg
-				point$ = "0," + string$(floor(f0))
+				if (tempLabel$ = "")
+					# if tempLabel$ is "", that means we're not preserving some earlier label
+					# instead, we're going to use a label of 0 + comma override
+					point$ = "0," + string$(floor(f0))
+				else
+					# if tempLabel$ is NOT "", we should preserve the earlier label
+					point$ = tempLabel$
+				endif
 				Insert point: tierPoints, time, point$
 			endfor
+
+			# remove the tempTier we added ealier
+			Remove tier: tempTier
 
 			# round the global min/max down/up to the nearest 10
 			.rangeF0min = floor(tempF0min/10)*10
@@ -442,7 +494,7 @@ procedure handEditPoints: .theSnd, .theTg, .thePT
 	
 			@pitchTierToLevelsLabels: .theTg, .thePT, .rangeF0min, .rangeF0max
 		endif
-		selectObject: .theManip
+		selectObject: .theManip, .bkupPT
 		Remove
 	endif
 	selectObject: .theSnd, .theTg, .thePT
@@ -457,6 +509,9 @@ endproc
 # 
 # --------------------
 procedure logging: .message$
+	if (not (variableExists("numLogs")))
+		numLogs = 0
+	endif
 	if numLogs = 0
 		numLogs = 1
 		writeInfoLine: .message$

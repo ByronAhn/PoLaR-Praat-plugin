@@ -1,3 +1,9 @@
+# 2023-11-07
+* Updates to `PoLaR-praat-procedures.praat` to refine how the `Adjust Points audio/visually` functionality works
+	- If there are labelled Ranges intervals, the min/max from that will set the Pitch min/max in the Manipulation window (where possible)
+	- If a label on the Points tier is **_not_ edited** in the Manipulation window, the original label is now preserved
+		* (This is especially useful where there is an advanced PoLaR label on a Points label; previously all advanced Points labels were lost if the user ran `Adjust Points audio/visually`)
+
 # 2023-10-23
 * Minor updates for the UI changes made possible by Praat 6.3.18
 	- In Editor windows, the menu buttons now allow now divider bars and nested menus, to make organizing the plugin functions easier
