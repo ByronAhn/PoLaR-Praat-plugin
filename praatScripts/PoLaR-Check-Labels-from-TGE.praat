@@ -95,6 +95,7 @@ procedure polarFormattingMain
 		
 	# delete the Discuss tier if there is nothing in it
 	if tierDiscuss > 0
+		selectObject: tgObj
 		n = Get number of points: tierDiscuss
 		if n = 0
 			@findPoLaRTiersMaximumSet: tgObj
@@ -303,6 +304,7 @@ procedure polarFormattingMain
 	
 	# now that Ranges/Levels have been resolved as much as possible, check to see if there is a Ranges tier and a Levels tier with labels
 	if tierRanges > 0 && tierLevels > 0
+		selectObject: tgObj
 		numLevels = Get number of points: tierLevels
 		numRangesWithNumbers = Count intervals where: tierRanges, "matches (regex)", ".*\d+.*"
 		# if there are there are labels on both tiers…
