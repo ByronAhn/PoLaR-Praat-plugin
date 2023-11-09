@@ -47,7 +47,9 @@ Add menu command: "TextGridEditor", "Edit", "Create picture (More Settings)", ""
 
 Add menu command: "TextGridEditor", "Tier", "- Modify/Inspect PoLaR TextGrids:", "", 0, ""
 Add menu command: "TextGridEditor", "Tier", "Add missing PoLaR tiers", "", 1, "praatScripts/PoLaR-TextGrid-Add-Missing-from-TGE.praat"
+Add menu command: "TextGridEditor", "Tier", "Check PoLaR labels/formatting", "", 1, "praatScripts/PoLaR-Check-Labels-from-TGE.praat"
 Add menu command: "TextGridEditor", "Tier", "Extract info from PoLaR tiers", "", 1, "praatScripts/PoLaR-Extract-Info-to-TSV-from-TGE.praat"
+
 
 Add menu command: "TextGridEditor", "Tier", "- Assess PoLaR Turning Points:", "", 0, ""
 Add menu command: "TextGridEditor", "Tier", "Adjust Points audio/visually", "", 1, "praatScripts/PoLaR-Adjust-Points-in-Manipulation-from-TGE.praat"
