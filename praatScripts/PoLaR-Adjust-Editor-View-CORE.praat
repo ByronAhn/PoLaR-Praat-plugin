@@ -1,16 +1,15 @@
 ################################################################
 ###
 ### PoLaR-Adjust-Editor-View-CORE
-### v.2022.05.19
+### v.2023.11.20
 ###
 ###
 ### This script adjusts the editor view in order to optimize 
 ### the viewer for editing
 ### 
 ### Instructions:
-###  - From within an editor window, open the "Pitch" menu
-###  - Select "PoLaR: Standard View Settings" --OR--
-###    "PoLaR: Sensitive View Settings"
+###  - From within an editor window, open the "Edit" menu
+###  - Select "Standard View Settings" --OR-- "Sensitive View Settings"
 ###
 ###
 ###	Byron Ahn (bta@princeton.edu)
@@ -23,7 +22,11 @@ procedure mainAdjust:
 # Start by setting advanced pitch settings according to the
 # script that calls this one
 ################################################################
-Advanced pitch settings: 0.0, 0.0, very_accurate, number_of_candidates, silence_threshold, voicing_threshold, octave_cost, octave_jump_cost, voice_unvoiced_cost
+if (praatVersion >= 6400)
+	Advanced pitch settings (filtered AC and CC): number_of_candidates, very_accurate, attenuation_at_ceiling, silence_threshold, voicing_threshold, octave_cost, octave_jump_cost, voice_unvoiced_cost
+else
+	Advanced pitch settings: 0.0, 0.0, very_accurate, number_of_candidates, silence_threshold, voicing_threshold, octave_cost, octave_jump_cost, voice_unvoiced_cost	
+endif
 
 ################################################################
 # Get the object number for the TextGrid in the Objects list
@@ -123,11 +126,27 @@ if f0MaxAnalysis <> 700
 endif
 
 ################################################################
+# Set variables, depending on the Praat version (after 6.4, new names are used)
+################################################################
+f0_unit$ = "Hertz"
+f0_method$ = "autocorrelation"
+if (praatVersion >= 6400)
+	f0_unit$ = "Hertz"
+	f0_method$ = "filtered autocorrelation"
+endif
+
+
+################################################################
 # Set the view settings
 ################################################################
 editor
-Pitch settings: f0MinAnalysis, f0MaxAnalysis, "Hertz", "autocorrelation", "speckles"
-Advanced pitch settings: 0.0, 0.0, very_accurate, number_of_candidates, silence_threshold, voicing_threshold, octave_cost, octave_jump_cost, voice_unvoiced_cost
+if (praatVersion >= 6400)
+	Pitch settings: f0MinAnalysis, f0MaxAnalysis, f0_unit$, f0_method$, "speckles", 0.0, 0.0
+	Advanced pitch settings (filtered AC and CC): number_of_candidates, very_accurate, attenuation_at_ceiling, silence_threshold, voicing_threshold, octave_cost, octave_jump_cost, voice_unvoiced_cost
+else
+	Pitch settings: f0MinAnalysis, f0MaxAnalysis, f0_unit$, f0_method$, "speckles"
+	Advanced pitch settings: 0.0, 0.0, very_accurate, number_of_candidates, silence_threshold, voicing_threshold, octave_cost, octave_jump_cost, voice_unvoiced_cost	
+endif
 Time step settings: "fixed", time_step, 100
 Spectrogram settings: 0.0, 7000.0, 0.005, 55.0
 

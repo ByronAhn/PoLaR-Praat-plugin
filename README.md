@@ -1,5 +1,5 @@
 ## PoLaR plugin for Praat
-README last updated: 2023/09/18
+README last updated: 2023/11/20
 
 In the documentation below, **all text preceded by ⏵** can be clicked to reveal more text.
 
@@ -100,6 +100,23 @@ In the documentation below, **all text preceded by ⏵** can be clicked to revea
 
 ## What Can You Do with the PoLaR plugin
 
+> [!IMPORTANT]
+> <details><summary>⚠️⚠️<b>For **MAC USERS** using any of the Momel-based functionalities…</b>⚠️⚠️</summary>
+> Because of how macOS security may try to prevent running "unknown" programs, you might need to try and run the Momel app first.
+> (_Try this if you're experiencing an error when you try to run "New Momel-based Points/Levels/Ranges"._)
+> 
+> <u>Directions to locate/run the Momel app:</u>
+> 	
+> 	* Navigate to the `momelFiles` directory in the `plugin_PoLaR` folder
+> 	* Double click on `momel_osx_intel`, and you might get a message saying:
+> 	  "`"momel_osx_intel"` cannot be opened because it is from an unidentified developer."
+> 	* If you do, click `OK` and then right-click (or control-click) on `momel_osx_intel` and select `Open`, and now you'll get a *new* message:
+> 	  "`"momel_osx_intel"` is a Unix app downloaded from the Internet. Are you sure you want to open it?"
+> 	* Click `Open`; a Terminal window will open and show a few lines of text
+> 	* After this is done, close the Terminal window and try to run the "New Momel-based Points/Levels/Ranges" functionality again from Praat
+</details>
+
+
 
 1. <details open id="adjust-view"><summary><i>Adjust Pitch/Spectrogram viewing settings</i></summary>
 
@@ -198,21 +215,6 @@ In the documentation below, **all text preceded by ⏵** can be clicked to revea
 			- any selected TextGrid+Sound(+PitchTier) combo(s) in the Objects window
 			- an open TextGrid+Sound pair in an Editor window
 			- every TextGrid+Sound(+PitchTier) combo in an entire directory
-		
-		> [!IMPORTANT]
-		> For **MAC USERS**: 
-		> Because of how macOS security may try to prevent running "unknown" programs, you might need to try and run the Momel app first.
-		> (_Try this if you're experiencing an error when you try to run "New Momel-based Points/Levels/Ranges"._)
-		> 
-		> <details><summary><b>Directions to locate/run the Momel app:</b></summary>
-		> 	
-		> 	* Navigate to the `momelFiles` directory in the `plugin_PoLaR` folder
-		> 	* Double click on `momel_osx_intel`, and you might get a message saying:
-		> 	  "`"momel_osx_intel"` cannot be opened because it is from an unidentified developer."
-		> 	* If you do, click `OK` and then right-click (or control-click) on `momel_osx_intel` and select `Open`, and now you'll get a *new* message:
-		> 	  "`"momel_osx_intel"` is a Unix app downloaded from the Internet. Are you sure you want to open it?"
-		> 	* Click `Open`; a Terminal window will open and show a few lines of text
-		> 	* After this is done, close the Terminal window and try to run the "New Momel-based Points/Levels/Ranges" functionality again from Praat</details>
 
 	2. <details id="levels-labels"><summary><b>New Levels Labels</b></summary>
 

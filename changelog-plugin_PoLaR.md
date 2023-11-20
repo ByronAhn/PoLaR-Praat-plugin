@@ -1,3 +1,9 @@
+# 2023-11-20
+* Praat 6.4 has introduced a new way of measuring f0, that seems to be better at tracking f0 for intonational research
+	 - As such, the plugin has been updated so that `Standard view settings` and `Sensitive view settings` work with any version both v.6.4 and pre-v.6.4
+	 - To do: reconsider some of the values used for these settings (and for the `To Pitch` functions), to take advantage of the new "filtered" f0 measurements
+* The README has been updated as well, to highlight the solution to problems with Momel-based functionalities that macOS users are likely to encounter
+
 # 2023-11-07
 * Updates to `PoLaR-praat-procedures.praat` to refine how the `Adjust Points audio/visually` functionality works
 	- If there are labelled Ranges intervals, the min/max from that will set the Pitch min/max in the Manipulation window (where possible)

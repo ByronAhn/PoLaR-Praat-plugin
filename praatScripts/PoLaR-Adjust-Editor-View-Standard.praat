@@ -1,7 +1,7 @@
 ################################################################
 ###
 ### PoLaR-Adjust-Editor-View-Standard
-### v.2022.01.28
+### v.2023.11.20
 ###
 ###
 ### The values used here are those suggested in the PoLaR
@@ -27,6 +27,7 @@ voicing_threshold = 0.5
 octave_cost = 0.05
 octave_jump_cost = 0.5
 voice_unvoiced_cost = 0.2
+attenuation_at_ceiling = 0.03
 
 @mainAdjust
 
