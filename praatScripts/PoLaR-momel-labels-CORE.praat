@@ -1,7 +1,7 @@
 ################################################################
 ###
 ### PoLaR-momel-labels-CORE
-### v.2023.09.10
+### v.2024.06.06
 ###
 ###
 ### This script uses Momel algorithms and executables to generate fully automated 
@@ -77,7 +77,11 @@ procedure momelBasedLabelsMain: .snd, .name$, .tg, .pt
 	@prepTextGrid: .tg
 	
 	# set directory location for momel executables
-	momelDir$ = "momelFiles/"
+	if windows
+		momelDir$ = "momelFiles\"
+	else
+		momelDir$ = "momelFiles/"
+	endif
 		
 	@createPitchFromSound: .snd, pitch_step
 	.thePitch = createPitchFromSound.thePitch
